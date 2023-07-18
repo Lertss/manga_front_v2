@@ -1,12 +1,12 @@
 <template>
   <div id="app">
+    <!--    <Header />-->
   <div style="height:50px ">
   <Header />
   </div>
-
-    <!--    <Footer />-->
-
+    <!--    <Other />-->
   <router-view/>
+    <!--    <Footer />-->
     <div>
       <Footer />
     </div>
@@ -16,7 +16,6 @@
 <script>
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
-import Manga_recommendations from './components/MangaBox.vue'
 export default {
   name: 'App',
   components: {

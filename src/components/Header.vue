@@ -13,10 +13,10 @@
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                  <a class="nav-link active" aria-current="page" href="/catalog">Catalog</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
+                  <a class="nav-link" href="/test">Test</a>
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -64,13 +64,7 @@ export default {
         window.requestAnimationFrame(() => {
           const scrolled = window.pageYOffset || document.documentElement.scrollTop;
 
-          if (scrolled > this.lastScrollTop) {
-            // Прокручування вниз
-            this.isNavHidden = true;
-          } else {
-            // Прокручування вгору
-            this.isNavHidden = false;
-          }
+          this.isNavHidden = scrolled > this.lastScrollTop;
 
           this.lastScrollTop = scrolled;
           this.ticking = false;
