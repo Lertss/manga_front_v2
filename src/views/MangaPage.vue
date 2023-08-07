@@ -1,22 +1,10 @@
-
-
-
-
-
-
-
-
-
-
-
-
 <template>
   <main class="container">
     <div class="row g-5 mt-3" >
       <div class="col-md-4">
         <div class="position-sticky">
           <div class="mb-3 bg-light rounded">
-            <img class="img-fluid" :src="manga.get_avatar">
+            <img class="img-fluid" :src="manga.get_avatar" alt="avatar">
           </div>
           <div class="p-4">
             <h4 class="fst-italic text-center">Information</h4>
