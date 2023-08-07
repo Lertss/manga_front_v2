@@ -1,62 +1,42 @@
 <template>
-  <div class="tabs paper" :data-tabs-init="{ &quot;line&quot;: true, &quot;history&quot;: true }" :data-tabs-id="tabsId">
-    <div class="media-tabs">
-      <div class="tabs__wrapper">
-        <ul class="tabs__list" :data-tabs-list-id="tabsId">
-          <li class="tabs__item" data-key="info">Информация</li>
-          <li class="tabs__item" data-key="chapters">Главы</li>
-          <li class="tabs__item" data-key="comments">Комментарии</li>
-          <li class="tabs__item" :class="{ 'tabs__item_active': activeTab === 'discussion' }" data-key="discussion">Обсуждения</li>
-          <div class="tabs__line" :style="lineStyle"></div>
-        </ul>
-      </div>
-    </div>
+  <div>
+    <button @click="showComponent(1)">Кнопка 1</button>
+    <button @click="showComponent(2)">Кнопка 2</button>
+    <button @click="showComponent(3)">Кнопка 3</button>
 
-    <div class="tabs__content">
-      <div v-show="activeTab === 'info'" class="media-section media-section_info" itemscope="" itemtype="http://schema.org/CreativeWork">
-        <!-- Content for 'Информация' tab -->
-      </div>
-
-      <div v-show="activeTab === 'chapters'" class="media-section media-section_teams">
-        <!-- Content for 'Главы' tab -->
-      </div>
-
-      <div v-show="activeTab === 'comments'" class="media-section media-section_slider" data-slider="similar">
-        <!-- Content for 'Комментарии' tab -->
-      </div>
-
-      <div v-show="activeTab === 'discussion'" class="media-section media-discussions">
-        <!-- Content for 'Обсуждения' tab -->
-      </div>
+    <div>
+      <component :is="currentComponent"></component>
     </div>
   </div>
 </template>
 
 <script>
+import Component1 from '@/components/one.vue';
+import Component2 from '@/components/two.vue';
+import Component3 from '@/components/three.vue';
+
 export default {
+  components: {
+    Component1,
+    Component2,
+    Component3,
+  },
   data() {
     return {
-      tabsId: 'tabs_1',
-      activeTab: 'discussion',
-      lineStyle: '',
+      currentComponent: 'Component1', // По замовчуванню відображаємо Component1
+
     };
   },
-  mounted() {
-    this.updateLineStyle();
-  },
   methods: {
-    updateLineStyle() {
-      const tabs = document.querySelector(`[data-tabs-id="${this.tabsId}"] .tabs__list`);
-      const activeTab = tabs.querySelector('.tabs__item_active');
-      const lineWidth = activeTab.offsetWidth;
-      const lineTranslateX = activeTab.offsetLeft;
-
-      this.lineStyle = `width: ${lineWidth}px; transform: translateX(${lineTranslateX}px)`;
+    showComponent(componentNumber) {
+      if (componentNumber === 1) {
+        this.currentComponent = 'Component1';
+      } else if (componentNumber === 2) {
+        this.currentComponent = 'Component2';
+      } else if (componentNumber === 3) {
+        this.currentComponent = 'Component3';
+      }
     },
   },
 };
 </script>
-
-<style>
-/* Your styles here */
-</style>

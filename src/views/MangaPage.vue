@@ -1,3 +1,15 @@
+
+
+
+
+
+
+
+
+
+
+
+
 <template>
   <main class="container">
     <div class="row g-5 mt-3" >
@@ -11,11 +23,11 @@
             <ol class="list-unstyled mb-0">
               <li> <h6>Author</h6>
                 <router-link v-if="manga.author && manga.author.length" :to="manga.author[0].get_absolute_url">
-                    <p>
-                      <em class="text-dark figure-caption">
-                        {{manga.author && manga.author[0].last_name}} {{manga.author && manga.author[0].first_name}}
-                      </em>
-                    </p>
+                  <p>
+                    <em class="text-dark figure-caption">
+                      {{manga.author && manga.author[0].last_name}} {{manga.author && manga.author[0].first_name}}
+                    </em>
+                  </p>
                 </router-link>
               </li>
 
@@ -51,71 +63,52 @@
             {{manga.name_original}}
           </em>
         </p>
+
+      <div class="bg-dark p-2 text-dark bg-opacity-50">
+        <button @click="showComponent(1)">Кнопка 1</button>
+        <button @click="showComponent(2)">Кнопка 2</button>
+        <button @click="showComponent(3)">Кнопка 3</button>
+
         <div>
-          <p class="border-bottom pb-4 mb-4 fst-italic">
-            <em>
-              Description
-            </em>
-          </p>
-          <p>{{manga.review}}</p>
+          <component :is="currentComponent" :manga="manga"></component>
         </div>
-
-
-<!--        Glaws-->
-        <div>
-        <div class="rounded" v-for="glaws in manga.glaws" :key="glaws.id">
-
-
-          <div style="display: flex; align-items: flex-start;">
-            <div>
-              <router-link :to="glaws.get_absolute_url">
-                <h4 class="text-dark figure-caption " style="margin-top: 0;">{{glaws.title}}</h4>
-              </router-link>
-              <router-link to="/">
-                <p>
-                  <em class="text-dark figure-caption">
-                    Tom 1 Chapter {{ glaws.num }}
-                  </em>
-                </p>
-              </router-link>
-            </div>
-          </div>
-        </div>
-        </div>
-<!--        Glaws end-->
-
-
       </div>
     </div>
+    </div>
   </main>
-
-
 </template>
 
-
 <script>
-import axios from 'axios'
+import Component1 from '@/components/one.vue';
+import Component2 from '@/components/two.vue';
+import Component3 from '@/components/three.vue';
+import axios from "axios";
 
 export default {
-  name: 'MangaPage',
   components: {
+    Component1,
+    Component2,
+    Component3,
   },
   data() {
     return {
-      manga: []
-    }
+      currentComponent: 'Component1', // По замовчуванню відображаємо Component1
+      manga: [],
+    };
   },
   mounted() {
     this.getManga()
   },
-  // watch: {
-  //   $route(to, from) {
-  //     if (to.name === 'Manga') {
-  //       this.getManga()
-  //     }
-  //   }
-  // },
   methods: {
+    showComponent(componentNumber) {
+      if (componentNumber === 1) {
+        this.currentComponent = 'Component1';
+      } else if (componentNumber === 2) {
+        this.currentComponent = 'Component2';
+      } else if (componentNumber === 3) {
+        this.currentComponent = 'Component3';
+      }
+    },
     async getManga() {
       const mangaSlug = this.$route.params.slug
       await axios
@@ -126,6 +119,6 @@ export default {
           })
 
     }
-  }
-}
+  },
+};
 </script>

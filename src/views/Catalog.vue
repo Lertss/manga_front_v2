@@ -3,6 +3,7 @@
     <h1>Каталог товарів</h1>
     <div class="row align-items-stretch">
       <div class="col-lg-2 col-md-3 col-sm-3 col-4" v-for="manga in latestMangas" :key="manga.id">
+        <router-link :to="manga.get_absolute_url">
         <div class="card h-100">
           <img :src="manga.get_thumbnail" class="card-img-top" alt="manga Image" style="width: 100%;">
           <div class="card-body">
@@ -10,7 +11,7 @@
             <p class="card-title line-clamp"><em>{{ manga.name_manga }}</em></p>
 
           </div>
-        </div>
+        </div></router-link>
       </div>
     </div>
   </div>

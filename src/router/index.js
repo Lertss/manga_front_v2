@@ -3,6 +3,8 @@ import Home from '../views/Home.vue'
 import Catalog from "@/views/Catalog.vue";
 import Test from "@/views/Test.vue";
 import MangaPage from "@/views/MangaPage.vue";
+import GlawPage from "@/views/GlawPage.vue";
+import ResetPassword from "@/views/ResetPassword.vue";
 
 const routes = [
   {
@@ -25,13 +27,23 @@ const routes = [
   },
   {
     path: '/:slug',
-    name: 'slug',
+    name: 'mangapage',
     component: MangaPage
+  },  {
+    path: '/:slug/:slug',
+    name: 'glawpage',
+    component: GlawPage
   },
+
   {
     path: '/test',
     name: 'test',
     component: Test
+  },
+  {
+    path: '/password/reset/confirm/:uuid/:token',
+    name: 'resetpassword',
+    component: ResetPassword
   },
 ]
 

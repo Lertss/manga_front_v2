@@ -1,4 +1,5 @@
 <template>
+  {{console.log(latestChapter)}}
   <div class="container-fluid">
     <p>Trons</p>
     <div v-for="chapter in latestChapter" :key="chapter.id" style="margin: 10px" class="border-bottom ">
@@ -12,7 +13,7 @@
           <router-link :to="chapter.manga.url">
             <h4 class="text-dark figure-caption " style="margin-top: 0;">{{ chapter.manga.name_manga }}</h4>
           </router-link>
-          <router-link to="/">
+          <router-link :to="`${chapter.manga.url}${chapter.slug}`">
           <p>
             <em class="text-dark figure-caption">
               Tom 1 Chapter {{ chapter.num }} {{ title }} {{ formatRelativeDate(chapter.data_g) }}
