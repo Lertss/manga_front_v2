@@ -1,10 +1,14 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import {createRouter, createWebHistory} from 'vue-router';
+import Home from '../views/Home.vue';
 import Catalog from "@/views/Catalog.vue";
 import Test from "@/views/Test.vue";
 import MangaPage from "@/views/MangaPage.vue";
 import GlawPage from "@/views/GlawPage.vue";
 import ResetPassword from "@/views/ResetPassword.vue";
+import Profile from "@/views/Profile.vue";
+import Login from "@/views/Login.vue";
+import Test2 from "@/views/Test2.vue";
+
 
 const routes = [
   {
@@ -30,26 +34,65 @@ const routes = [
     name: 'mangapage',
     component: MangaPage
   },  {
-    path: '/:slug/:slug',
+    path: '/:slug/:slugtwo',
     name: 'glawpage',
     component: GlawPage
   },
-
   {
     path: '/test',
     name: 'test',
     component: Test
   },
   {
+    path: '/test2',
+    name: 'test2',
+    component: Test2
+  },
+  {
     path: '/password/reset/confirm/:uuid/:token',
     name: 'resetpassword',
     component: ResetPassword
   },
-]
+  {
+    path: '/profile',
+    name: 'profile',
+    component: Profile,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/log-in',
+    name: 'log-in',
+    component: Login,
+    beforeEnter: (to, from, next) => {
+      if (isLoggedIn) {
+        next('/catalog');
+      } else {
+        next();
+      }
+    }
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
-})
+});
+let isLoading = true;
+let isAuthenticated = localStorage.getItem('isLoggedIn');
+const isLoggedIn = isAuthenticated === 'true';
 
-export default router
+router.beforeEach((to, from, next) => {
+  if (isLoading) {
+    if (to.matched.some(route => route.meta.requiresAuth) && !isLoggedIn) {
+      isLoading = false;
+      next('/log-in');
+    } else {
+      isLoading = false;
+      next();
+    }
+  } else {
+    next();
+  }
+});
+
+export default router;

@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import axios from 'axios';
 import moment from 'moment';
+import api from "@/components/kt/inter";
 
 export default {
   name: 'RecentUpdates',
@@ -45,7 +45,7 @@ export default {
   methods: {
     async getLatestMangas() {
       try {
-        const response = await axios.get('/api/v1/latest_chapter/');
+        const response = await api.get('/api/v1/latest_chapter/');
         this.latestChapter = response.data;
       } catch (error) {
         console.log(error);

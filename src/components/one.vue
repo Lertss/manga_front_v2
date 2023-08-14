@@ -1,18 +1,19 @@
 <template>
-  <p>{{manga.review}}</p>
+  <p>{{ manga.review }}</p>
 </template>
 
 <style scoped>
 
 </style>
+
 <script>
 export default {
   name: 'one',
   props: {
     manga: {
-      type: Array,
-      required: true
-    }
-  }
-}
+      type: Object, // Change this to Object
+      required: true,
+    },
+  },
+};
 </script>

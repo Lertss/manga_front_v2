@@ -31,7 +31,7 @@ export default {
     async getGlaw() {
       const glawaSlug = this.$route.fullPath
       console.log(glawaSlug)
-      await axios
+      await api
                   .get(`/api/v1${glawaSlug}`)
                   .then(response => {
                     this.glaw = response.data

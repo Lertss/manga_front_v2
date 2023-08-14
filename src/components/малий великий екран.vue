@@ -42,3 +42,5 @@ export default {
   /* Ваші стилі для малого екрану тут */
 }
 </style>
+
+<!--Сірі букви class add :font-italic text-muted-->

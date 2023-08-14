@@ -43,7 +43,7 @@ Axios для HTTP-запитів. На перший погляд він має �
 </template>
 
 <script>
-import axios from 'axios';
+import api from "@/components/kt/inter";
 
 export default {
   data() {
@@ -70,7 +70,7 @@ export default {
         new_password2: this.newPassword2,
       };
       try {
-        const response = await axios.post(`/password/reset/confirm/${this.uid}/${this.token}/`, data);
+        const response = await api.post(`/password/reset/confirm/${this.uid}/${this.token}/`, data);
         console.log('Password reset successful:', response.data);
         // Redirect to login page or display a success message
       } catch (error) {
