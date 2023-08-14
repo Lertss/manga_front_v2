@@ -23,9 +23,9 @@ export default {
   name: 'one',
   props: {
     manga: {
-      type: Array,
-      required: true
-    }
-  }
-}
+      type: Object, // Change this to Object
+      required: true,
+    },
+  },
+};
 </script>

@@ -214,7 +214,7 @@
 </template>
 
 <script>
-import RecentUpdates from "@/components/RecentUpdates.vue";
+import RecentUpdates from "@/components/Manga/LatestChapter.vue";
 export default {
   name: 'App',
   components: {

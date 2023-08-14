@@ -11,7 +11,8 @@
             <p class="card-title line-clamp"><em>{{ manga.name_manga }}</em></p>
 
           </div>
-        </div></router-link>
+        </div>
+        </router-link>
       </div>
     </div>
   </div>
@@ -21,7 +22,7 @@
 
 
 <script>
-import axios from 'axios'
+import api from "@/components/kt/inter";
 
 export default {
   name: 'Home',
@@ -39,7 +40,7 @@ export default {
   methods: {
     async getLatestMangas() {
       try {
-        const response = await axios.get('/api/v1/home/')
+        const response = await api.get('/api/v1/home/')
         this.latestMangas = response.data[0]
       } catch (error) {
         console.log(error)

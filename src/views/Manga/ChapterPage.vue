@@ -13,10 +13,9 @@
 
 
 <script>
-import axios from 'axios'
-
+import api from "@/components/kt/inter";
 export default {
-  name: 'GlawPage',
+  name: 'ChapterPage',
   components: {
   },
   data() {
@@ -31,7 +30,7 @@ export default {
     async getGlaw() {
       const glawaSlug = this.$route.fullPath
       console.log(glawaSlug)
-      await axios
+      await api
                   .get(`/api/v1${glawaSlug}`)
                   .then(response => {
                     this.glaw = response.data

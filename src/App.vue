@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!--    <Header />-->
-  <div style="height:50px ">
+  <div style="height:50px;  margin-bottom: 20px; ">
   <Header />
   </div>
     <!--    <Other />-->
@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import Footer from './components/Footer.vue'
+import Header from './components/Main/Header.vue'
+import Footer from './components/Main/Footer.vue'
 export default {
   name: 'App',
   components: {
@@ -24,3 +24,5 @@ export default {
   }
 }
 </script>
+
+

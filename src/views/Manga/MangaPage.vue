@@ -67,10 +67,10 @@
 </template>
 
 <script>
-import Component1 from '@/components/one.vue';
-import Component2 from '@/components/two.vue';
-import Component3 from '@/components/three.vue';
-import axios from "axios";
+import Component1 from '@/components/Manga/RewiewMangaPage.vue';
+import Component2 from '@/components/Manga/ChapterMangaPage.vue';
+import Component3 from '@/components/Manga/ComentsMangaPage.vue';
+import api from "@/components/kt/inter";
 
 export default {
   components: {
@@ -99,7 +99,7 @@ export default {
     },
     async getManga() {
       const mangaSlug = this.$route.params.slug
-      await axios
+      await api
           .get(`/api/v1/${mangaSlug}/`)
           .then(response => {
             this.manga = response.data
