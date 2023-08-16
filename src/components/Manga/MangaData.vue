@@ -1,5 +1,5 @@
 <template>
-  {{console.log(manga_data)}}
+  {{// console.log(manga_data)}}
 
         <router-link :to="manga_data.manga.url">
           <div class="card h-100">
