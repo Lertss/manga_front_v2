@@ -10,23 +10,18 @@
             <h4 class="fst-italic text-center">Information</h4>
             <ol class="list-unstyled mb-0">
               <li> <h6>Author</h6>
-                <router-link v-if="manga.author && manga.author.length" :to="manga.author[0].get_absolute_url">
                   <p>
                     <em class="text-dark figure-caption">
                       {{manga.author && manga.author[0].last_name}} {{manga.author && manga.author[0].first_name}}
                     </em>
                   </p>
-                </router-link>
               </li>
-
               <li> <h6>Country</h6>
-                <router-link v-if="manga.counts && manga.counts.length" :to="manga.counts[0].counts">
                   <p>
                     <em class="text-dark figure-caption">
                       {{manga.counts && manga.counts[0].counts}}
                     </em>
                   </p>
-                </router-link>
               </li>
             </ol>
           </div>
@@ -103,6 +98,7 @@ export default {
           .get(`/api/v1/${mangaSlug}/`)
           .then(response => {
             this.manga = response.data
+            console.log(this.manga)
             document.title = this.manga.name_original + ' | Djackets'
           })
 

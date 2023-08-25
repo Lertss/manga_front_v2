@@ -1,13 +1,13 @@
 <template>
   <div>
-    <div class="rounded" v-for="glaws in manga.glaws" :key="glaws.id">
+    <div class="rounded" v-for="chap in manga.chapter" :key="chap.id">
       <div style="display: flex; align-items: flex-start;">
         <div>
-          <router-link :to="glaws.get_absolute_url">
-            <h4 class="text-dark figure-caption " style="margin-top: 0;">{{glaws.title}}</h4>
+          <router-link :to="chap.get_absolute_url">
+            <h4 class="text-dark figure-caption " style="margin-top: 0;">{{chap.title}}</h4>
             <p>
               <em class="text-dark figure-caption">
-                Tom 1 Chapter {{ glaws.num }}
+                Tom 1 Chapter {{ chap.num }}
               </em>
             </p>
           </router-link>

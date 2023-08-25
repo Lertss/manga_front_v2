@@ -2,7 +2,7 @@
 
         <div
 
-            v-for="gallery in glaw.galleries"
+            v-for="gallery in chapter.galleries"
             :key="gallery.id"
             class="d-flex justify-content-center"
         >
@@ -20,22 +20,22 @@ export default {
   },
   data() {
     return {
-      glaw: []
+      chapter: []
     }
   },
   mounted() {
-    this.getGlaw()
+    this.getChapter()
   },
   methods: {
-    async getGlaw() {
-      const glawaSlug = this.$route.fullPath
-      console.log(glawaSlug)
+    async getChapter() {
+      const chapterSlug = this.$route.fullPath
+      console.log(chapterSlug)
       await api
-                  .get(`/api/v1${glawaSlug}`)
-                  .then(response => {
-                    this.glaw = response.data
-                    document.title = this.glaw.name_original + ' | Djackets'
-                  })
+            .get(`/api/v1/${chapterSlug}`)
+            .then(response => {
+              this.glaw = response.data
+              document.title = this.chapter.name_original + ' | Manga'
+            })
     }
   }
 }

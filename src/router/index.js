@@ -1,15 +1,19 @@
 import {createRouter, createWebHistory} from 'vue-router';
 import Home from '../views/Home.vue';
 import Catalog from "@/views/Catalog.vue";
-import Test from "@/views/Test.vue";
+import Test from "@/views/Test/Test.vue";
 import MangaPage from "@/views/Manga/MangaPage.vue";
 import GlawPage from "@/views/Manga/ChapterPage.vue";
 import ResetPassword from "@/views/User/ResetPassword.vue";
 import Profile from "@/views/User/Profile.vue";
 import Login from "@/views/User/Login.vue";
-import Test2 from "@/views/Test2.vue";
+import Test2 from "@/views/Test/Test2.vue";
 import EmailConfirm from "@/views/User/EmailConfirm.vue";
 import SignUp from "@/views/User/SgnUp.vue"
+import MangaCreate from "@/views/Manga/MangaCreate.vue";
+import Test4 from "@/views/Test/Test4.vue";
+import MangaUpdate from "@/views/Manga/MangaUpdate.vue";
+import ChapterCreate from "@/views/Manga/ChapterCreate.vue";
 
 const routes = [
   {
@@ -48,7 +52,27 @@ const routes = [
     path: '/test2',
     name: 'test2',
     component: Test2
+  },  {
+    path: '/test4',
+    name: 'test4',
+    component: Test4
   },
+  {
+    path: '/manga_create',
+    name: 'manga_create',
+    component: MangaCreate
+  },
+  {
+    path: '/manga/update/:slug',
+    name: 'mangaUpdate',
+    component: MangaUpdate
+  },
+  {
+    path: '/:slug/chapter_create',
+    name: 'chapter_create',
+    component: ChapterCreate
+  },
+
   {
     path: '/auth/password/reset/confirm/:uuid/:token',
     name: 'resetpassword',

@@ -1,5 +1,5 @@
 <template>
-  {{// console.log(latestChapter)}}
+  {{console.log(latestChapter)}}
   <div class="container-fluid">
     <p>Trons</p>
     <div v-for="chapter in latestChapter" :key="chapter.id" style="margin: 10px" class="border-bottom ">

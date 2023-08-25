@@ -2,17 +2,18 @@
   <div class="container">
     <h1>Каталог товарів</h1>
     <div class="row align-items-stretch">
-      <div class="col-lg-2 col-md-3 col-sm-3 col-4" v-for="manga in latestMangas" :key="manga.id">
-        <router-link :to="manga.get_absolute_url">
+      <div class="col-lg-2 col-md-3 col-sm-3 col-4" v-for="(manga, index) in latestMangas" :key="index">
+        <router-link :to="manga.url">
         <div class="card h-100">
-          <img :src="manga.get_thumbnail" class="card-img-top" alt="manga Image" style="width: 100%;">
+          <img :src="manga.thumbnail" class="card-img-top" alt="manga Image" style="width: 100%;">
           <div class="card-body">
-<!--            <p style="margin: 0px;">3</p> оценка-->
+<!--&lt;!&ndash;            <p style="margin: 0px;">3</p> оценка&ndash;&gt;-->
             <p class="card-title line-clamp"><em>{{ manga.name_manga }}</em></p>
 
           </div>
         </div>
         </router-link>
+        {{console.log("tut",manga)}}
       </div>
     </div>
   </div>
@@ -40,8 +41,9 @@ export default {
   methods: {
     async getLatestMangas() {
       try {
-        const response = await api.get('/api/v1/home/')
-        this.latestMangas = response.data[0]
+        const response = await api.get('/api/v1/allManga/')
+        this.latestMangas = response.data
+        console.log(this.latestMangas)
       } catch (error) {
         console.log(error)
       }

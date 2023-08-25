@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-scroll" :class="{ 'fixed-top': !isNavHidden, 'hide': isNavHidden }">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/public">Logo</a>
+          <a class="navbar-brand" href="/">Logo</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2">
             <span class="navbar-toggler-icon"></span>
           </button>
