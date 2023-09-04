@@ -4,7 +4,7 @@ import Catalog from "@/views/Catalog.vue";
 import Test from "@/views/Test/Test.vue";
 import MangaPage from "@/views/Manga/MangaPage.vue";
 import GlawPage from "@/views/Manga/ChapterPage.vue";
-import ResetPassword from "@/views/User/ResetPassword.vue";
+import ResetPassword from "@/views/User/ResetPasswordConfirm.vue";
 import Profile from "@/views/User/Profile.vue";
 import Login from "@/views/User/Login.vue";
 import Test2 from "@/views/Test/Test2.vue";
@@ -14,6 +14,12 @@ import MangaCreate from "@/views/Manga/MangaCreate.vue";
 import Test4 from "@/views/Test/Test4.vue";
 import MangaUpdate from "@/views/Manga/MangaUpdate.vue";
 import ChapterCreate from "@/views/Manga/ChapterCreate.vue";
+import ChapterUpdate from "@/views/Manga/ChapterUpdate.vue";
+import AccountPage from "@/views/User/AccountPage.vue";
+import TopHundredMangaRating from "@/views/Manga/TopHundredMangaRating.vue";
+import TopHundredMangaLastRating from "@/views/Manga/TopHundredMangaLastRating.vue";
+import Tophundredmangacomments from "@/views/Manga/Tophundredmangacomments.vue";
+
 
 const routes = [
   {
@@ -35,10 +41,26 @@ const routes = [
     component: Catalog
   },
   {
+    path: '/top/hundred/rating',
+    name: 'TopHundredMangaRating',
+    component: TopHundredMangaRating,
+  },
+  {
+    path: '/top/hundred/last/rating',
+    name: 'TopHundredMangaLastRating',
+    component: TopHundredMangaLastRating,
+  },
+  {
+    path: '/top/hundred/coment',
+    name: 'Tophundredmangacomments',
+    component: Tophundredmangacomments,
+  },
+  {
     path: '/:slug',
     name: 'mangapage',
     component: MangaPage
-  },  {
+  },
+  {
     path: '/:slug/:slugtwo',
     name: 'glawpage',
     component: GlawPage
@@ -58,7 +80,7 @@ const routes = [
     component: Test4
   },
   {
-    path: '/manga_create',
+    path: '/manga/create',
     name: 'manga_create',
     component: MangaCreate
   },
@@ -68,7 +90,12 @@ const routes = [
     component: MangaUpdate
   },
   {
-    path: '/:slug/chapter_create',
+    path: '/:slug/chapter/update/:slugchap',
+    name: 'chapter_update',
+    component: ChapterUpdate
+  },
+  {
+    path: '/:slug/chapter/create',
     name: 'chapter_create',
     component: ChapterCreate
   },
@@ -77,6 +104,11 @@ const routes = [
     path: '/auth/password/reset/confirm/:uuid/:token',
     name: 'resetpassword',
     component: ResetPassword
+  },
+  {
+      path: '/account/:slug',
+      name: 'account',
+      component: AccountPage,
   },
   {
     path: '/profile',

@@ -38,7 +38,7 @@
               <h1>Profile</h1>
               <div class="row align-items-stretch">
                 <div class="col-lg-2 col-md-3 col-sm-3 col-4" v-for="manga in filteredManga" :key="manga.id">
-                  <MangaProfile :manga_data = "manga" ></MangaProfile>
+                  <MangaData :manga_data = "manga" ></MangaData>
                 </div>
               </div>
             </div>
@@ -78,14 +78,14 @@
 
 <script>
 import { VueCookieNext } from 'vue-cookie-next';
-import MangaProfile from "@/components/Manga/MangaData.vue";
+import MangaData from "@/components/Manga/MangaData.vue";
 import api from "@/components/kt/inter";
 
 
 export default {
   name: 'Profile',
   components: {
-    MangaProfile
+    MangaData
   },
   data() {
     return {

@@ -57,7 +57,7 @@ export default {
       formData.append("manga", this.chapter.manga);
       formData.append("title", this.chapter.title);
       formData.append("chapter_number", this.chapter.chapter_number);
-      formData.append("volume", this.chapter.chapter_number);
+      formData.append("volume", this.chapter.volume_number);
       formData.append("slug", this.chapter.chapter_number);
 
       this.chapter.pages.forEach((page, index) => {

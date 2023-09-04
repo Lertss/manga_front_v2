@@ -1,14 +1,14 @@
 <template>
   <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#Modal">
     Create new Author
   </button>
   <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" ref="modal">
+  <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true" ref="modal">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Enter your first and last name</h1>
+          <h1 class="modal-title fs-5" id="ModalLabel">Enter your first and last name</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -21,11 +21,11 @@
               <label for="username" class="form-label">Last Name</label>
               <input v-model="last_name" type="text" class="form-control" id="last_name" required>
             </div>
-            <button type="submit" data-bs-dismiss="modal" class="btn btn-primary">Sent</button>
+            <button type="submit" data-bs-dismiss="modal" class="btn btn-warning">Sent</button>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary btn-close" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>

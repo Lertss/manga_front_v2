@@ -6,7 +6,7 @@ import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
 import api from "@/components/kt/inter";
-
+import 'bootstrap-icons/font/bootstrap-icons.css'
 
 const app = createApp(App)
 

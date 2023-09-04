@@ -38,14 +38,33 @@
       </div>
 
       <div class="col-md-8">
+        <div>
         <h3 class="">
           {{manga.name_manga}}
         </h3>
-        <p class="border-bottom pb-4 mb-4 fst-italic">
+        <p class="pb-4 mb-4 fst-italic">
           <em>
             {{manga.name_original}}
           </em>
         </p>
+        </div>
+        <Rating :average_rating="manga.average_rating"/>
+        <div class="border-bottom pb-4 mb-4 fst-italic">
+
+
+
+            <h1>Додати оцінку рейтингу</h1>
+            <form @submit.prevent="submitRating">
+              <label for="rating">Рейтинг:</label>
+              <input v-model="rating" type="number" min="1" max="10" required>
+              <br>
+              <button type="submit">Відправити</button>
+            </form>
+
+
+
+
+        </div >
 
       <div class="bg-dark p-2 text-dark bg-opacity-50">
         <button @click="showComponent(1)">Кнопка 1</button>
@@ -53,7 +72,11 @@
         <button @click="showComponent(3)">Кнопка 3</button>
 
         <div>
-          <component :is="currentComponent" :manga="manga"></component>
+          <div>
+            <component1 v-if="currentComponent === 'Component1'" :manga="manga" />
+            <component2 v-else-if="currentComponent === 'Component2'" :manga="manga" />
+            <component3 v-else />
+          </div>
         </div>
       </div>
     </div>
@@ -64,11 +87,14 @@
 <script>
 import Component1 from '@/components/Manga/RewiewMangaPage.vue';
 import Component2 from '@/components/Manga/ChapterMangaPage.vue';
-import Component3 from '@/components/Manga/ComentsMangaPage.vue';
+import Component3 from '@/components/Manga/CommentsMangaPage.vue';
 import api from "@/components/kt/inter";
+import {VueCookieNext} from "vue-cookie-next";
+import Rating from "@/components/Manga/Rating.vue";
 
 export default {
   components: {
+    Rating,
     Component1,
     Component2,
     Component3,
@@ -77,6 +103,7 @@ export default {
     return {
       currentComponent: 'Component1', // По замовчуванню відображаємо Component1
       manga: [],
+      rating: '',
     };
   },
   mounted() {
@@ -99,9 +126,27 @@ export default {
           .then(response => {
             this.manga = response.data
             console.log(this.manga)
-            document.title = this.manga.name_original + ' | Djackets'
-          })
+            document.title = this.manga.name_manga + ' | Manga'
+        })
+    },
+    async submitRating() {
+      try {
+        const accessToken = VueCookieNext.getCookie('accessToken');
+        const headers = {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'multipart/form-data', // Важливо вказати тип даних
+        };
+        const mangaSlug = this.$route.params.slug
+        const response = await api.post('/commn/manga-ratings/', {
+          manga_slug: mangaSlug,
+          rating: this.rating
+        },
+        {headers});
 
+        console.log('Оцінка була успішно додана:', response.data);
+      } catch (error) {
+        console.error('Помилка при додаванні оцінки:', error);
+      }
     }
   },
 };

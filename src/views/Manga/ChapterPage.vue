@@ -1,22 +1,23 @@
 <template>
-
         <div
-
-            v-for="gallery in chapter.galleries"
-            :key="gallery.id"
+            v-for="page in chapter.pages"
+            :key="page.id"
             class="d-flex justify-content-center"
         >
-          <img :src="gallery.get_image" alt="Gallery Image" class="img-fluid col-lg-7 col-12">
+          <img :src="page.get_image" alt="Gallery Image" class="img-fluid col-lg-7 col-12">
       </div>
 
+  <ChapterComentComponent />
 </template>
 
 
 <script>
 import api from "@/components/kt/inter";
+import ChapterComentComponent from "@/components/Manga/ChapterComentComponent.vue";
 export default {
   name: 'ChapterPage',
   components: {
+    ChapterComentComponent
   },
   data() {
     return {
@@ -28,13 +29,14 @@ export default {
   },
   methods: {
     async getChapter() {
-      const chapterSlug = this.$route.fullPath
-      console.log(chapterSlug)
+      const mangaSlug = this.$route.params.slug
+      const chapterSlug = this.$route.params.slugtwo
       await api
-            .get(`/api/v1/${chapterSlug}`)
+            .get(`/api/v1/${mangaSlug}/${chapterSlug}`)
             .then(response => {
-              this.glaw = response.data
-              document.title = this.chapter.name_original + ' | Manga'
+              this.chapter = response.data
+              console.log("this.chapter", this.chapter)
+              document.title = this.chapter.title + ' | Chapter'
             })
     }
   }

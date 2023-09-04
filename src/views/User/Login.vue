@@ -1,11 +1,15 @@
 <template>
   <div class="container mt-5">
+    <div v-for="(errorMessage, fieldName) in errorMessages" :key="fieldName" class="alert alert-danger alert-manga-create">
+
+      {{ fieldName }}: {{ errorMessage }}
+    </div>
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="card">
           <div class="card-header">Log In</div>
           <div class="card-body">
-            <form @submit.prevent="login">
+            <form @submit.prevent="login" class="d-md-block">
               <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
                 <input v-model="formData.username" type="text" class="form-control" id="username" required>
@@ -18,6 +22,12 @@
             </form>
           </div>
           <PasswordReset_Email />
+        </div>
+      </div>
+
+      <div class="col-md-6 d-none d-md-block text-center">
+        <div>
+          <img src="../../assets/Pages/Anime_Pastel_Dream_anime_landscape_1.jpg" class="mx-auto rounded-3 img-setupl" alt=""/>
         </div>
       </div>
     </div>
@@ -37,6 +47,7 @@ export default {
         username: '',
         password: '',
       },
+      errorMessages: {},
     };
   },
   components: {
@@ -46,22 +57,35 @@ export default {
     async login() {
       try {
         const response = await axios.post('/auth/login/', this.formData);
-        const {access, refresh, user} = response.data;
+        const {access, refresh} = response.data;
 
         // Зберігаємо токен в куці
-        VueCookieNext.setCookie('accessToken', access, '2m'); // Наприклад, зберігаємо на 7 днів
-        VueCookieNext.setCookie('refreshToken', refresh, '30d')
+        VueCookieNext.setCookie('accessToken', access); // Наприклад, зберігаємо на 7 днів
+        VueCookieNext.setCookie('refreshToken', refresh)
         localStorage.setItem('isLoggedIn', 'true');
         // Зберегти інформацію про користувача, якщо необхідно
-        localStorage.setItem('user', JSON.stringify(user));
         window.location.href = '/log-in';
 
 
       } catch (error) {
-        console.error('Login failed:', error);
+        if (error.response && error.response.data) {
+          const errorData = error.response.data;
+          this.errorMessages = {};
+          if (errorData.non_field_errors) {
+            this.errorMessages.Error = errorData.non_field_errors.join(', ');
+          }
+        }
       }
     },
   },
 
 };
 </script>
+
+
+<style>
+.img-setupl{
+  width: 63%;
+  height: 83%
+}
+</style>
