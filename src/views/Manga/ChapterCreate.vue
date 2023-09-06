@@ -1,33 +1,46 @@
 <template>
-  <div>
-    <h1>Create New Chapter</h1>
-    <form @submit.prevent="createChapter">
-      <label for="manga">Manga ID:</label>
-      <input type="number" v-model="chapter.manga" required /><br />
+  <div class="container">
+    <div class="row">
+      <h1>Create New Chapter</h1>
+      <div class="row">
+        <div class="col-lg-6 col-12">
+          <form @submit.prevent="createChapter">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" placeholder="Optional field" v-model="chapter.title" /><br />
 
-      <label for="title">Title:</label>
-      <input type="text" v-model="chapter.title" /><br />
+            <label for="chapter_number">Chapter Number:</label>
+            <input type="number" class="form-control" placeholder="Required field" v-model="chapter.chapter_number" required /><br />
 
+            <label for="chapter_number">Volume Number:</label>
+            <input class="form-control" placeholder="Required field" type="number" v-model="chapter.volume_number" required /><br />
 
-      <label for="chapter_number">Chapter Number:</label>
-      <input type="number" v-model="chapter.chapter_number" required /><br />
+            <div>
+              <div v-for="(page, index) in chapter.pages" :key="index">
+                <input class="form-control" accept="image/*" type="file" @change="handlePageChange(index, $event)" />
+              </div>
+              <!-- Горизонтально розташовані кнопки -->
+              <div class="btn-group">
+                <button class="btn btn-outline-warning" type="button" @click="addPageInput">Add Pages</button>
+                <button class="btn btn-outline-danger" type="button" @click="removePageInput(index)">Remove Page</button>
+              </div>
+            </div>
 
-      <label for="chapter_number">Volume Number:</label>
-      <input type="number" v-model="chapter.volume_number" required /><br />
-
-      <div v-for="(page, index) in chapter.pages" :key="index">
-        <input type="file" @change="handlePageChange(index, $event)" />
+            <button class="btn btn-warning float-end" type="submit">Create Chapter</button>
+          </form>
+        </div>
+        <div class="col-lg-6 col-12">
+          <div v-for="(page, index) in chapter.pages" :key=index>
+            <img v-if=page.url :src=page.url class="img-fluid col-lg-7 col-12"/>
+          </div>
+        </div>
       </div>
-      <button type="button" @click="addPageInput">Add Pages</button><br />
-
-      <button type="submit">Create Chapter</button>
-    </form>
+    </div>
   </div>
 </template>
 
 <script>
-import axios, {post} from "axios";
-import {VueCookieNext} from "vue-cookie-next";
+import axios from "axios";
+import { VueCookieNext } from "vue-cookie-next";
 
 export default {
   data() {
@@ -38,7 +51,7 @@ export default {
         chapter_number: null,
         pages: [],
         volume_number: null,
-        slug: null
+        slug: null,
       },
     };
   },
@@ -47,14 +60,19 @@ export default {
       const file = event.target.files[0];
       this.chapter.pages[index] = {
         image: file,
+        url: URL.createObjectURL(file),
       };
     },
     addPageInput() {
       this.chapter.pages.push({});
     },
+    removePageInput(index) {
+      this.chapter.pages.splice(index, 1);
+    },
     createChapter() {
+      const mangaSlug = this.$route.params.slug;
       const formData = new FormData();
-      formData.append("manga", this.chapter.manga);
+      formData.append("manga", mangaSlug);
       formData.append("title", this.chapter.title);
       formData.append("chapter_number", this.chapter.chapter_number);
       formData.append("volume", this.chapter.volume_number);
@@ -62,20 +80,19 @@ export default {
 
       this.chapter.pages.forEach((page, index) => {
         formData.append(`image`, page.image);
-        formData.append('page_number', index)
+        formData.append("page_number", index);
       });
       for (let entry of formData.entries()) {
-        console.log("tut",entry[0], entry[1]);
+        console.log("tut", entry[0], entry[1]);
       }
 
-      const accessToken = VueCookieNext.getCookie('accessToken');
+      const accessToken = VueCookieNext.getCookie("accessToken");
       const headers = {
         Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'multipart/form-data', // Важливо вказати тип даних
+        "Content-Type": "multipart/form-data", // Важливо вказати тип даних
       };
       axios
-          .post("http://127.0.0.1:8000/api/v1/chapters/", formData, {headers
-          })
+          .post("http://127.0.0.1:8000/api/v1/chapters/", formData, { headers })
           .then((response) => {
             console.log("Chapter created:", response.data);
           })

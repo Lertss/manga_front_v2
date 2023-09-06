@@ -3,8 +3,7 @@
     <div class="p-4 p-md-5 mb-4 text-white">
       <Carusel />
     </div>
-
-    <Random />
+    <RandomTwo />
 
     <div class="row g-5">
       <div class="col-md-8">
@@ -36,13 +35,15 @@
 <script>
 import RecentUpdates from "@/components/Manga/LatestChapter.vue";
 import Carusel from "@/components/Main/Carusel.vue";
-import Random from "@/components/Manga/Random.vue";
+import RandomTwo from "@/components/Manga/RandomTwo.vue";
 import NewUserMainPage from "@/components/User/NewUserMainPage.vue";
+import Search from "@/components/Main/Search.vue";
 export default {
   name: 'App',
   components: {
+    Search,
     NewUserMainPage,
-    Random,
+    RandomTwo,
     RecentUpdates,
     Carusel
   }

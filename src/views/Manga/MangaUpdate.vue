@@ -9,62 +9,78 @@
           <h1>Update Manga</h1>
 
           <!-- Update Name Manga -->
-          <div class="mb-3">
+          <div class="mb-3 col-md-8 mt-5">
             <h2>Name Manga</h2>
-            <input type="text" required v-model="formData.name_manga">
-            <button class="btn btn-warning m-3" @click="updateNameManga">Update Name Manga</button>
+            <input type="text" class="form-control " maxlength="200" required v-model="formData.name_manga">
+            <button class="btn btn-warning m-3 float-end" @click="updateNameManga">Update Name Manga</button>
           </div>
 
           <!-- Update Name Original -->
-          <div class="mb-3">
+          <div class="mb-3 col-md-8 mt-5">
             <h2>Name Original</h2>
-            <input type="text" required v-model="formData.name_original">
-            <button class="btn btn-warning m-3" @click="updateNameOriginal">Update Original Name Manga</button>
+            <input type="text" class="form-control " maxlength="200" required v-model="formData.name_original">
+            <button class="btn btn-warning m-3 float-end" @click="updateNameOriginal">Update Original Name Manga</button>
           </div>
 
           <!-- Update Name English -->
-          <div class="mb-3">
+          <div class="mb-3 col-md-8 mt-5">
             <h2>Name English</h2>
-            <input type="text" required v-model="formData.english_only_field">
-            <button class="btn btn-warning m-3" @click="updateEnglishName">Update English Name Manga</button>
+            <input type="text" class="form-control" maxlength="200" required v-model="formData.english_only_field">
+            <button class="btn btn-warning m-3 float-end" @click="updateEnglishName">Update English Name Manga</button>
           </div>
 
+
           <!-- Update Decency -->
-          <div>
+          <div class=" mb-3 mt-5">
             <h1>Decency</h1>
             <p> <em>Work intended for individuals aged 18 and older?</em></p>
             <input type="checkbox" id="checkbox" class="m-1" v-model="this.formData.decency" />
             <label for="checkbox" v-if="this.formData.decency">Yes</label>
             <label for="checkbox" v-else>No</label>
+            <button class="btn btn-warning m-3 float-end"  @click="updateDecency">Update Decency</button>
+
           </div>
 
           <!-- Update Description -->
-          <div class="mb-3">
+          <div class="mb-3 mt-5 col-md-8">
             <h2>Description</h2>
-            <textarea class="form-control" required rows="3" v-model="formData.review"></textarea>
-            <button class="btn btn-warning m-3" @click="updateReview">Update Description</button>
+            <textarea class="form-control" required rows="3" maxlength="1000" v-model="formData.review"></textarea>
+            <button class="btn btn-warning m-3 float-end"  @click="updateReview">Update Description</button>
           </div>
           <!-- Update Avatar -->
-          <div class="mb-3">
+          <div class="mb-3 mt-5 col-md-8 ">
             <label for="avatar" class="form-label">Avatar</label>
             <input class="form-control" id="avatar" required type="file" accept="image/*" @change="onFileChange" />
-            <button class="btn btn-warning m-3" @click="updateAvatar">Update Avatar</button>
+            <button class="btn btn-warning m-3 float-end" @click="updateAvatar">Update Avatar</button>
           </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4 mt-5">
           <div class="position-sticky" style="top: 2rem;">
             <div class="p-4 mb-3 bg-body-tertiary rounded">
               <!-- Child Component for Filters -->
               <child-component @update:selectedDataFilter="handleSelectedGenres" />
-              <button class="btn btn-warning" @click="updateCategory">Update Category</button>
-              <button class="btn btn-warning" @click="updateGenre">Update Genre</button>
-              <button class="btn btn-warning" @click="updateTag">Update Tag</button>
-              <button class="btn btn-warning" @click="updateAuthor">Update Author</button>
-              <button class="btn btn-warning" @click="updateCounts">Update Counts</button>
+
+              <!-- Buttons to update different categories -->
+              <button class="btn btn-warning m-2" @click="updateCategory">Update Category</button>
+
+              <!-- Buttons to update genres -->
+              <button class="btn btn-warning m-2" @click="updateGenre">Update Genre</button>
+
+              <!-- Buttons to update tags -->
+              <button class="btn btn-warning m-2" @click="updateTag">Update Tag</button>
+
+              <!-- Buttons to update authors -->
+              <button class="btn btn-warning m-2" @click="updateAuthor">Update Author</button>
+
+              <!-- Buttons to update counts -->
+              <button class="btn btn-warning m-2" @click="updateCounts">Update Counts</button>
             </div>
           </div>
         </div>
+
+
+
       </div>
     </main>
   </div>

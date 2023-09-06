@@ -1,14 +1,19 @@
 <template>
-        <div
-            v-for="page in chapter.pages"
-            :key="page.id"
-            class="d-flex justify-content-center"
-        >
-          <img :src="page.get_image" alt="Gallery Image" class="img-fluid col-lg-7 col-12">
-      </div>
 
-  <ChapterComentComponent />
+
+  <div
+      v-for="page in chapter.pages"
+      :key="page.id"
+      class="d-flex justify-content-center"
+  >
+    <img :src="page.get_image" alt="Gallery Image" class="img-fluid col-lg-7 col-12">
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <ChapterComentComponent />
+  </div>
 </template>
+
 
 
 <script>

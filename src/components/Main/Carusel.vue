@@ -10,7 +10,7 @@
     <router-link to="/top/hundred/rating">
       <img style="width: 100%; max-height: 400px; height: 100%;" src="../../assets/a-vivid-image-with-the-inscription-top-100-manga-267733123.png" alt=""/>
       <div class="carousel-caption text-dark d-none d-md-block carousel-caption d-none d-md-block" style="text-align: center;">
-        <h5 style="background-color: rgba(255, 255, 255, 0.7); width: 40%; margin: 0 auto;">Top 100 manga by estimates</h5>
+        <h5 class="rounded-3" style="background-color: rgba(255, 255, 255, 0.7); width: 40%; margin: 0 auto;">Top 100 manga by estimates</h5>
       </div>
     </router-link>
   </div>
@@ -19,7 +19,7 @@
     <router-link to="/top/hundred/last/rating">
     <img style="width: 100%; max-height: 400px; height: 100%;" src="../../assets/image-with-the-inscription-top-100-manga-666784838.png" alt=""/>
       <div class="carousel-caption text-dark d-none d-md-block carousel-caption d-none d-md-block" style="text-align: center;">
-        <h5 style="background-color: rgba(255, 255, 255, 0.7); width: 70%; margin: 0 auto;">Top 100 manga according to estimates for the last year</h5>
+        <h5 class="rounded-3" style="background-color: rgba(255, 255, 255, 0.7); width: 70%; margin: 0 auto;">Top 100 manga according to estimates for the last year</h5>
     </div>
     </router-link>
   </div>
@@ -28,7 +28,7 @@
     <img style="width: 100%; max-height: 400px; height: 100%;"
          src="../../assets/image-with-the-inscription-top-100-manga-323302470.png" alt=""/>
       <div class="carousel-caption text-dark d-none d-md-block carousel-caption d-none d-md-block" style="text-align: center;">
-        <h5 style="background-color: rgba(255, 255, 255, 0.7); width: 60%; margin: 0 auto;">Top 100 manga by number of comments</h5>
+        <h5 class="rounded-3" style="background-color: rgba(255, 255, 255, 0.7); width: 60%; margin: 0 auto;">Top 100 manga by number of comments</h5>
     </div>
     </router-link>
   </div>
@@ -43,5 +43,3 @@
 </button>
 </div>
 </template>
-<script setup>
-</script>

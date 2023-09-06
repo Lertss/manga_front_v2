@@ -1,10 +1,12 @@
 <template>
+
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-scroll" :class="{ 'fixed-top': !isNavHidden, 'hide': isNavHidden }">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/">Logo</a>
+      <router-link class="navbar-brand" to="/">Logo</router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="offcanvas offcanvas-end bg-dark" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="offcanvasNavbar2Label">Offcanvas</h5>
@@ -13,38 +15,49 @@
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/catalog">Catalog</a>
+              <button type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal">
+                <i class="bi bi-search" style="color: white"></i>
+              </button>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/test">Test</a>
+              <router-link class="nav-link active" aria-current="page" to="/catalog">Catalog</router-link>
             </li>
             <li class="nav-item" v-if="isLoggedIn">
-              <a class="nav-link" href="/profile">Profile</a>
+              <router-link class="nav-link" to="/profile">Profile</router-link>
             </li>
             <li class="nav-item dropdown" v-if="isLoggedIn">
               <button class="nav-link" @click="logout">Logout</button>
             </li>
-            <li class="nav-item dropdown" v-if="!isLoggedIn">
-              <a class="nav-link" href="/signup">Signup</a>
-            </li>
-            <li class="nav-item dropdown" v-if="!isLoggedIn">
-              <a class="nav-link" href="/log-in">Login</a>
-            </li>
+            <ul class="nav-item" v-else>
+              <li class="d-flex">
+                <router-link class="nav-link" to="/signup">Signup</router-link>
+                <router-link class="nav-link" to="/log-in">Login</router-link>
+              </li>
+            </ul>
           </ul>
-
-          <form class="d-flex mt-3 mt-lg-0" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
         </div>
       </div>
     </div>
   </nav>
+  <!-- Modal -->
+  <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="searchModalLabel">Search</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <Search/>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 import { VueCookieNext } from "vue-cookie-next";
-
+import Search from "@/components/Main/Search.vue";
 export default {
   data() {
     return {
@@ -53,6 +66,9 @@ export default {
       ticking: false,
       isLoggedIn: false, // Додайте стан для статусу користувача
     };
+  },
+  components:{
+    Search
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
@@ -91,7 +107,6 @@ export default {
 
 
 <style>
-/* Додайте стилі для ефекту випливання зверху */
 .hide {
   position: fixed;
   top: 0;

@@ -4,9 +4,11 @@
     <div class="col-md-6 d-flex">
       <div class="row g-0 border rounded overflow-hidden flex-md-row flex-fill mb-4 shadow-sm h-md-300 position-relative">
         <div class="col p-4 d-flex flex-column position-static">
+          <router-link :to="randomManga[0].url" class="no-underline">
           <strong class="d-inline-block mb-2 text-primary">{{ randomManga[0].category_title }}</strong>
           <h3 class="mb-0">{{ randomManga[0].name_manga }}</h3>
           <p class="card-text mb-auto">{{ truncateText(randomManga[0].review, 100)  }}</p>
+          </router-link>
         </div>
         <div class="col-auto d-none d-lg-block">
           <img class="bd-placeholder-img" :src="randomManga[0].thumbnail" alt="Thumbnail" width="200" height="250" role="img" aria-label="Placeholder: Thumbnail" style="object-fit: cover;" focusable="false">
@@ -16,10 +18,12 @@
     <div class="col-md-6 d-flex">
       <div class="row g-0 border rounded overflow-hidden flex-md-row flex-fill mb-4 shadow-sm h-md-300 position-relative">
         <div class="col p-4 d-flex flex-column position-static">
+          <router-link :to="randomManga[1].url" class="no-underline">
           <strong class="d-inline-block mb-2 text-success">{{ randomManga[1].category_title }}</strong>
           <h3 class="mb-0">{{ randomManga[1].name_manga }}</h3>
           <p class="mb-auto">{{ truncateText(randomManga[1].review, 100) }}</p>
-        </div>
+          </router-link>
+            </div>
         <div class="col-auto d-none d-lg-block">
           <img class="bd-placeholder-img" :src="randomManga[1].thumbnail" alt="Thumbnail" width="200" height="250" role="img" aria-label="Placeholder: Thumbnail" style="object-fit: cover;" focusable="false">
         </div>
@@ -36,7 +40,7 @@
 import api from "@/components/kt/inter";
 
 export default {
-  name: 'Random',
+  name: 'RandomTwo',
   data() {
     return {
       randomManga: []
@@ -64,3 +68,11 @@ export default {
   }
 }
 </script>
+
+<style>
+.no-underline {
+  text-decoration: none;
+  color: inherit;
+
+}
+</style>

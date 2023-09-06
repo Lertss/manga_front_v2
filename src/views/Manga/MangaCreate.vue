@@ -9,45 +9,43 @@
       <main class="container">
         <div class="row g-5">
           <div class="col-md-8">
-      <div class="mb-3">
-        <h1>Name manga</h1>
-        <input type="text" class="form-control" id="FormControlInput1" placeholder="Name manga" required v-model="this.formData.name_manga">
-        <label for="FormControlInput1" class="form-label"></label>
-      </div>
-
-      <div class="mb-3">
-        <h1>Name original</h1>
-        <input type="text" class="form-control" id="FormControlInput2" placeholder="Name original" required v-model="this.formData.name_original">
-        <label for="FormControlInput2" class="form-label"></label>
-      </div>
-
-      <div class="mb-3">
-        <h1>Name english</h1>
-        <input type="text" class="form-control" id="FormControlInput3" placeholder="English only field" required v-model="this.formData.english_only_field">
-        <label for="FormControlInput3" class="form-label"></label>
-      </div>
-
-      <div>
-        <h1>Decency</h1>
-        <p> <em>Work intended for individuals aged 18 and older?</em></p>
-        <input type="checkbox" id="checkbox" class="m-1" v-model="this.formData.decency" />
-        <label for="checkbox" v-if="this.formData.decency">Yes</label>
-        <label for="checkbox" v-else>No</label>
-      </div>
-
-      <div class="mb-3">
-        <h1>Description</h1>
-        <label for="exampleFormControlTextarea1" class="form-label"></label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required v-model="this.formData.review"></textarea>
-      </div>
-
-      <div class="mb-3">
-        <label for="avatar" class="form-label m-1">Avatar</label>
-        <input class="form-control" id="avatar" type="file" accept="image/*" required @change="onFileChange" />
-      </div>
-            <div >
+            <div class="mb-3 col-md-8 mt-5">
+              <h1>Name manga</h1>
+              <input type="text" class="form-control" maxlength="200" id="FormControlInput1" placeholder="Name manga" required v-model="this.formData.name_manga">
+              <label for="FormControlInput1" class="form-label"></label>
             </div>
-        </div>
+
+            <div class="mb-3 col-md-8 mt-5">
+              <h1>Name original</h1>
+              <input type="text" class="form-control" maxlength="200" id="FormControlInput2" placeholder="Name original" required v-model="this.formData.name_original">
+              <label for="FormControlInput2" class="form-label"></label>
+            </div>
+
+            <div class="mb-3 col-md-8 mt-5">
+              <h1>Name english</h1>
+              <input type="text" class="form-control" maxlength="200" id="FormControlInput3" placeholder="English only field" required v-model="this.formData.english_only_field">
+              <label for="FormControlInput3" class="form-label"></label>
+            </div>
+
+            <div>
+              <h1>Decency</h1>
+              <p> <em>Work intended for individuals aged 18 and older?</em></p>
+              <input type="checkbox" id="checkbox" class="m-1" v-model="this.formData.decency" />
+              <label for="checkbox" v-if="this.formData.decency">Yes</label>
+              <label for="checkbox" v-else>No</label>
+            </div>
+
+            <div class="mb-3 col-md-8 mt-5">
+              <h1>Description</h1>
+              <label for="exampleFormControlTextarea1" class="form-label"></label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" maxlength="1000" rows="3" required v-model="this.formData.review"></textarea>
+            </div>
+
+            <div class="mb-3 col-md-8 mt-5">
+              <label for="avatar" class="form-label m-1">Avatar</label>
+              <input class="form-control" id="avatar" type="file" accept="image/*" required @change="onFileChange" />
+            </div>
+          </div>
         <div class="col-md-4">
           <div>
             <div class="p-4 mb-3 bg-body-tertiary rounded-4">

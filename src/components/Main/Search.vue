@@ -1,11 +1,13 @@
 <template>
   <div>
     <input v-model="searchTerm" placeholder="Пошук за назвою манги" @input="searchManga">
-    <ul>
-      <li v-for="manga in mangaList" :key="manga.id">
-        {{ manga.name_manga }}
-      </li>
-    </ul>
+    <div v-if="searchTerm">
+      <div v-for="manga in mangaList" :key="manga.id">
+        <a class="nav-link fst-italic border-bottom border-warning" style=" margin: 3%;" :href="manga.url">
+          <p>{{ manga.name_manga }}</p>
+      </a>
+      </div>
+  </div>
   </div>
 </template>
 

@@ -207,16 +207,6 @@ export default {
         countries: []
       },
       minRating: 0,
-      genres: ['Harem', 'Comedy', 'Action', 'Josei'],
-      tags: ['System', 'Samurai', 'Web', 'Gods', 'Future', 'Antihero', 'Angels', 'Alchemy'],
-      categories: ['Other', 'Comics', 'Manhwa', 'Web', 'Manhua', 'Manga'],
-      countrys: [
-        'Angola',
-        'Andorra',
-        'Algeria',
-        'Albania',
-        'Afghanistan',
-      ],
       mangaList: [],
       dataFilter:[]
     }

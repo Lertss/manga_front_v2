@@ -5,7 +5,7 @@ import Test from "@/views/Test/Test.vue";
 import MangaPage from "@/views/Manga/MangaPage.vue";
 import GlawPage from "@/views/Manga/ChapterPage.vue";
 import ResetPassword from "@/views/User/ResetPasswordConfirm.vue";
-import Profile from "@/views/User/Profile.vue";
+import Profile from "@/views/User/Profile/Profile.vue";
 import Login from "@/views/User/Login.vue";
 import Test2 from "@/views/Test/Test2.vue";
 import EmailConfirm from "@/views/User/EmailConfirm.vue";
@@ -15,11 +15,11 @@ import Test4 from "@/views/Test/Test4.vue";
 import MangaUpdate from "@/views/Manga/MangaUpdate.vue";
 import ChapterCreate from "@/views/Manga/ChapterCreate.vue";
 import ChapterUpdate from "@/views/Manga/ChapterUpdate.vue";
-import AccountPage from "@/views/User/AccountPage.vue";
+import AccountPage from "@/views/User/Profile/AccountPage.vue";
 import TopHundredMangaRating from "@/views/Manga/TopHundredMangaRating.vue";
 import TopHundredMangaLastRating from "@/views/Manga/TopHundredMangaLastRating.vue";
 import Tophundredmangacomments from "@/views/Manga/Tophundredmangacomments.vue";
-
+import Notification from "@/views/User/Notification.vue";
 
 const routes = [
   {
@@ -85,21 +85,20 @@ const routes = [
     component: MangaCreate
   },
   {
-    path: '/manga/update/:slug',
+    path: '/:slug/manga/update/',
     name: 'mangaUpdate',
     component: MangaUpdate
-  },
-  {
-    path: '/:slug/chapter/update/:slugchap',
-    name: 'chapter_update',
-    component: ChapterUpdate
   },
   {
     path: '/:slug/chapter/create',
     name: 'chapter_create',
     component: ChapterCreate
   },
-
+  {
+    path: '/:slug/chapter/update/:slugchap',
+    name: 'chapter_update',
+    component: ChapterUpdate
+  },
   {
     path: '/auth/password/reset/confirm/:uuid/:token',
     name: 'resetpassword',
@@ -115,6 +114,11 @@ const routes = [
     name: 'profile',
     component: Profile,
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/notification',
+    name: 'notification',
+    component: Notification
   },
   {
     path: '/log-in',

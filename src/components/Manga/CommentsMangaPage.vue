@@ -6,16 +6,14 @@
       <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" v-model="comment"></textarea>
       <label for="floatingTextarea">Comments</label>
     </div>
-    <button @click="postComment">Post Comment</button>
+    <button class="btn btn-warning m-1 float-end" @click="postComment">Post Comment</button>
   </div>
-  <div>
-    <div class="rounded" v-for="(comm, index) in commentsManga" :key="index">
+  <div class="mt-5">
+    <div class="rounded-4 border border-warning m-3 p-3" v-for="(comm, index) in commentsManga" :key="index">
       <div style="text-align: right;">
 
         <!-- Button trigger modal -->
-        <button type="button" class="btn transparent-button" :data-bs-target="'#updateModal-' + comm.id" data-bs-toggle="modal">
-          <i class="bi bi-pencil"/>
-        </button>
+
 
 
         <!-- Modal -->
@@ -36,9 +34,8 @@
 
               </div>
               <div class="modal-footer">
-                <button @click="deleteComment(comm.id)" type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-trash3"></i> Delete</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-                <button @click="updateComment(comm.id, comm.content)">Update Description</button>
+                <button aria-label="Close" @click="deleteComment(comm.id)" type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-trash3"></i> Delete</button>
+                <button class="btn btn-warning" data-bs-dismiss="modal" @click="updateComment(comm.id, comm.content)">Update</button>
 
               </div>
             </div>
@@ -51,20 +48,27 @@
 
 
       <div style="display: flex; align-items: flex-start;">
+        <!-- Додаємо router-link та його контент -->
         <div>
-          <div>
-          <router-link to="/account/{{comm.user.slug}}">
-            <h4 class="text-dark figure-caption " style=" font-weight: bold; margin-top: 10px;">{{comm.user.username}}</h4>
+          <router-link :to="'/account/' + comm.user.slug" class="no-underline">
+            <h4 class="text-dark figure-caption" style="font-weight: bold; margin-top: 10px;">{{ comm.user.username }}</h4>
           </router-link>
-            <p>
-              <em class="text-dark figure-caption" style="margin: 15px ">
-                 {{ comm.content }}
-              </em>
-            </p>
+
+          <p>
+            <em class="text-dark figure-caption" style="margin: 15px ">
+              {{comm.content}}
+            </em>
+          </p>
         </div>
+
+        <!-- Переміщена іконка на правий бік -->
+        <button type="button" class="btn transparent-button" :data-bs-target="'#updateModal-' + comm.id" data-bs-toggle="modal">
+          <i class="bi bi-pencil"></i>
+        </button>
       </div>
+
+
     </div>
-  </div>
 </div>
   </div>
 </template>

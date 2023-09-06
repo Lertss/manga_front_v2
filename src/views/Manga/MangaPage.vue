@@ -1,88 +1,78 @@
 <template>
-  <main class="container">
-    <div class="row g-5 mt-3" >
+  <main class="container" style="width: 90%;">
+    <div class="row g-5 mt-3">
       <div class="col-md-4">
         <div class="position-sticky">
-          <div class="mb-3 bg-light rounded">
-            <img class="img-fluid" :src="manga.get_avatar" alt="avatar">
+          <div class="mb-3 bg-light image-user mx-auto d-block">
+            <img class="rounded-3" :src="manga.get_avatar" style="height: 100%; width: 100%" alt="avatar">
           </div>
-          <div class="p-4">
+          <div v-if="isUserAuthenticated">
+            <MangaListMangaPage />
+          </div>
+          <div class="p-4 ms-5">
+            <div >
+              <h3 class="border-bottom border-warning">{{ manga.name_manga }}</h3>
+              <p class="fst-italic border-bottom border-warning mb-4"><em>{{ manga.name_original }}</em></p>
+            </div>
             <h4 class="fst-italic text-center">Information</h4>
             <ol class="list-unstyled mb-0">
-              <li> <h6>Author</h6>
-                  <p>
-                    <em class="text-dark figure-caption">
-                      {{manga.author && manga.author[0].last_name}} {{manga.author && manga.author[0].first_name}}
-                    </em>
-                  </p>
+              <li>
+                <h6>Author</h6>
+                <p>
+                  <em class="text-dark figure-caption border-bottom border-warning">
+                    {{
+                      manga.author && manga.author[0] && manga.author[0].last_name
+                          ? manga.author[0].last_name + ' ' + manga.author[0].first_name
+                          : 'Not specified'
+                    }}
+                  </em>
+                </p>
               </li>
-              <li> <h6>Country</h6>
-                  <p>
-                    <em class="text-dark figure-caption">
-                      {{manga.counts && manga.counts[0].counts}}
-                    </em>
-                  </p>
+              <li>
+                <h6>Country</h6>
+                <p>
+                  <em class="text-dark figure-caption border-bottom border-warning">
+                    {{
+                      manga.counts && manga.counts[0] && manga.counts[0].counts
+                          ? manga.counts[0].counts
+                          : 'Not specified'
+                    }}
+                  </em>
+                </p>
               </li>
-            </ol>
-          </div>
-
-          <div class="p-4">
-            <h4 class="fst-italic">Elsewhere</h4>
-            <ol class="list-unstyled">
-              <li><a href="#">GitHub</a></li>
-              <li><a href="#">Twitter</a></li>
-              <li><a href="#">Facebook</a></li>
             </ol>
           </div>
         </div>
       </div>
 
-      <div class="col-md-8">
-        <div>
-        <h3 class="">
-          {{manga.name_manga}}
-        </h3>
-        <p class="pb-4 mb-4 fst-italic">
-          <em>
-            {{manga.name_original}}
-          </em>
-        </p>
-        </div>
-        <Rating :average_rating="manga.average_rating"/>
-        <div class="border-bottom pb-4 mb-4 fst-italic">
-
-
-
-            <h1>Додати оцінку рейтингу</h1>
-            <form @submit.prevent="submitRating">
-              <label for="rating">Рейтинг:</label>
-              <input v-model="rating" type="number" min="1" max="10" required>
-              <br>
-              <button type="submit">Відправити</button>
-            </form>
-
-
-
-
-        </div >
-
-      <div class="bg-dark p-2 text-dark bg-opacity-50">
-        <button @click="showComponent(1)">Кнопка 1</button>
-        <button @click="showComponent(2)">Кнопка 2</button>
-        <button @click="showComponent(3)">Кнопка 3</button>
-
-        <div>
-          <div>
-            <component1 v-if="currentComponent === 'Component1'" :manga="manga" />
-            <component2 v-else-if="currentComponent === 'Component2'" :manga="manga" />
-            <component3 v-else />
+      <div class="col-md-7 m-3 pt-5 ">
+        <div class="p-2 border border-warning text-dark bg-opacity-50 components-user rounded-3">
+          <button class="btn btn-warning m-1" @click="showComponent(1)">Description</button>
+          <button class="btn btn-warning m-1" @click="showComponent(2)">Chapters</button>
+          <button class="btn btn-warning m-1" @click="showComponent(3)">Comments</button>
+          <div class="float-end btn-group" role="group">
+            <Rating :average_rating="manga.average_rating"/>
+            <router-link to="manga/update" class="btn btn-outline-secondary"><i class="bi bi-gear"></i></router-link>
+          </div>
+            <div>
+            <div>
+              <component1 v-if="currentComponent === 'Component1'" :manga="manga" />
+              <component2 v-else-if="currentComponent === 'Component2'" :manga="manga" />
+              <component3 v-else />
+            </div>
           </div>
         </div>
+
+
+        <div style="display: flex; justify-content: center; align-items: center;" class="mt-5">
+          <h3 style="margin-right: 10px;">We also recommend reading</h3>
+          <RandomFour />
+        </div>
       </div>
-    </div>
     </div>
   </main>
 </template>
+
 
 <script>
 import Component1 from '@/components/Manga/RewiewMangaPage.vue';
@@ -91,9 +81,13 @@ import Component3 from '@/components/Manga/CommentsMangaPage.vue';
 import api from "@/components/kt/inter";
 import {VueCookieNext} from "vue-cookie-next";
 import Rating from "@/components/Manga/Rating.vue";
+import RandomFour from "@/components/Manga/RandomFour.vue";
+import MangaListMangaPage from "@/components/Manga/MangaListMangaPage.vue";
 
 export default {
   components: {
+    MangaListMangaPage,
+    RandomFour,
     Rating,
     Component1,
     Component2,
@@ -109,6 +103,13 @@ export default {
   mounted() {
     this.getManga()
   },
+  computed:{
+    isUserAuthenticated() {
+      // Проверяем наличие токена авторизации
+      return VueCookieNext.getCookie('accessToken') !== null;
+    },
+  },
+
   methods: {
     showComponent(componentNumber) {
       if (componentNumber === 1) {
@@ -143,11 +144,21 @@ export default {
         },
         {headers});
 
-        console.log('Оцінка була успішно додана:', response.data);
+        console.log('The score was successfully added:', response.data);
       } catch (error) {
-        console.error('Помилка при додаванні оцінки:', error);
+        console.error('Error when adding a score:', error);
       }
     }
   },
 };
 </script>
+
+<style>
+.image-user{
+  width:250px;
+  height: 350px;
+}
+.components-user{
+  background: #fafafa;
+}
+</style>

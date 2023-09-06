@@ -1,4 +1,5 @@
 <template>
+  <h2>Description</h2>
   <p>{{ manga.review }}</p>
 </template>
 
