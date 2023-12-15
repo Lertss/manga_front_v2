@@ -11,10 +11,22 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Settings</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+
+
+          <form @submit.prevent="updateEmail" class="m-3 mt-5">
+            <div>
+              <label>Update email </label>
+              <input class="form-control" type="email" v-model="selectedEmail" id="flexCheckDefault">
+
+            </div>
+            <button type="submit" class="btn btn-warning float-end">Submit</button>
+          </form>
+
+
 
           <form @submit.prevent="updateGender" class="m-3">
             <div class="mb-3">
@@ -27,6 +39,7 @@
             </div>
             <button type="submit" class="btn btn-warning float-end">Submit</button>
           </form>
+
 
           <form @submit.prevent="updateAdult" class="m-3 mt-5">
             <div class="form-check">
@@ -58,7 +71,7 @@
 <script>
 import axios from 'axios';
 import {VueCookieNext} from "vue-cookie-next";
-import api from "@/components/kt/inter";
+import api from "@/components/script/inter";
 
 export default {
   data() {
@@ -66,9 +79,26 @@ export default {
       selectedGender: "Not Specified",
       selectedAdult: false,
       selectedAvatar: null,
+      selectedEmail: '',
     };
   },
   methods: {
+
+    async updateEmail() {
+      try {
+
+        const accessToken = VueCookieNext.getCookie('accessToken');
+        const headers = {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'multipart/form-data',
+        };
+        const response = await axios.post('/auth/change-email/', {   "new_email": this.selectedEmail },
+            { headers });
+        console.log("Success", response.data)
+      } catch (error) {
+        console.log(error)
+      }
+    },
     async updateGender() {
       try {
 

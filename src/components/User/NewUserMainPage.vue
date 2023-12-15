@@ -24,7 +24,7 @@
 
 
 <script>
-import api from "@/components/kt/inter";
+import api from "@/components/script/inter";
 export default {
   name: 'NewUserMainPage',
   data() {

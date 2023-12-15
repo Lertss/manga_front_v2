@@ -1,7 +1,7 @@
 <template>
 
   <!-- Button trigger modal -->
-  <button type="button" class="btn btn-secondary m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  <button type="button" class="btn btn-warning m-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Reset Password
   </button>
   <!-- Modal -->

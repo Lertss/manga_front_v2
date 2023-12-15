@@ -19,7 +19,12 @@
         <div class="position-sticky" style="top: 2rem;">
           <div class="p-4 mb-3 bg-light rounded">
             <h4 class="fst-italic">About</h4>
-            <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
+
+            <p>Welcome to our manga website! We are dedicated to bringing you the best manga stories from around the world. Our team works tirelessly to provide you with access to the latest releases and classic masterpieces.</p>
+
+            <p>We aim to create a community of manga enthusiasts where you can discuss your favorite series, share recommendations, and interact with other fans. Whether you're new to the world of manga or an experienced reader, we're delighted to welcome you to our community!</p>
+
+            <p>Join us today and dive into the captivating world of manga!</p>
           </div>
 
           <NewUserMainPage />

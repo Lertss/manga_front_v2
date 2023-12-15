@@ -90,7 +90,7 @@
 
 <script>
 import ChildComponent from "@/components/Manga/Filter.vue";
-import api from "@/components/kt/inter";
+import api from "@/components/script/inter";
 import {VueCookieNext} from "vue-cookie-next";
 
 

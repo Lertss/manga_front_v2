@@ -28,15 +28,17 @@
 
 
 
-  <div  class="responsive-width mt-4">
-    <div class="p-2 border border-warning text-dark bg-opacity-50 components-user  rounded-3">
+  <div class="responsive-width mt-4">
+    <div class="p-2 border border-warning text-dark bg-opacity-50 components-user rounded-3">
       <button class="btn btn-warning m-1" @click="showComponent(1)">Manga</button>
-      <button class="btn btn-warning m-1" @click="showComponent(2)">Coments</button>
+      <button class="btn btn-warning m-1" @click="showComponent(2)">Comments</button>
+      <button class="btn btn-warning m-1" @click="showComponent(3)">Notifications</button>
       <div class="float-end"></div>
       <div>
         <div>
-          <MangaProfile :mangas="Profile.list_manga" v-if="currentComponent === 'MangaProfile'" />
-          <CommentsProfile :comments="Profile.comments"  v-else />
+          <MangaProfile :mangas="Profile.list_manga" v-show="currentComponent === 'MangaProfile'" />
+          <CommentsProfile :comments="Profile.comments" v-show="currentComponent === 'CommentsProfile'" />
+          <NotificationAll v-show="currentComponent === 'NotificationAll'" />
         </div>
       </div>
     </div>
@@ -48,10 +50,12 @@
 <script>
 import { VueCookieNext } from 'vue-cookie-next';
 import MangaData from "@/components/Manga/MangaData.vue";
-import api from "@/components/kt/inter";
+import api from "@/components/script/inter";
 import MangaProfile from "@/components/User/MangaProfile.vue";
 import CommentsProfile from "@/components/User/CommentsProfile.vue";
 import Settings from "@/components/User/SettingsUser.vue";
+import NotificationAll from "@/components/User/NotificationAll.vue";
+
 
 export default {
   name: 'Profile',
@@ -59,7 +63,8 @@ export default {
     Settings,
     MangaProfile,
     CommentsProfile,
-    MangaData
+    MangaData,
+    NotificationAll, // Добавьте эту строку
   },
   data() {
     return {
@@ -87,13 +92,15 @@ export default {
   },
 
   methods: {
-    showComponent(componentNumber) {
-      if (componentNumber === 1) {
-        this.currentComponent = 'MangaProfile';
-      } else if (componentNumber === 2) {
-        this.currentComponent = 'CommentsProfile';
-      }
-    },
+      showComponent(componentIndex) {
+        if (componentIndex === 1) {
+          this.currentComponent = 'MangaProfile';
+        } else if (componentIndex === 2) {
+          this.currentComponent = 'CommentsProfile';
+        } else if (componentIndex === 3) {
+          this.currentComponent = 'NotificationAll';
+        }
+      },
     async getProfile() {
       try {
         const accessToken = VueCookieNext.getCookie('accessToken');
@@ -105,7 +112,11 @@ export default {
         this.Profile = response.data;
 
       } catch (error) {
-        console.log(error);
+        if (error.response.status === 404) {
+          this.$router.push('/error');
+        } else {
+          this.$router.push('/errorserver');
+        }
       }
     },
   },

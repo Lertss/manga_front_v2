@@ -2,10 +2,11 @@
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-scroll" :class="{ 'fixed-top': !isNavHidden, 'hide': isNavHidden }">
     <div class="container-fluid">
-      <router-link class="navbar-brand" to="/">Logo</router-link>
+      <router-link class="navbar-brand" to="/"><img class="logo" src="../../../public/Logo.png" alt="Logo"></router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2">
         <span class="navbar-toggler-icon"></span>
       </button>
+
 
       <div class="offcanvas offcanvas-end bg-dark" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
         <div class="offcanvas-header">
@@ -15,12 +16,18 @@
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
             <li class="nav-item">
+              <router-link class="nav-link active" aria-current="page" to="/notification"><i class="bi bi-bell"></i></router-link>
+            </li>
+            <li class="nav-item">
               <button type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#searchModal">
                 <i class="bi bi-search" style="color: white"></i>
               </button>
             </li>
             <li class="nav-item">
               <router-link class="nav-link active" aria-current="page" to="/catalog">Catalog</router-link>
+            </li>
+            <li class="nav-item">
+              <router-link class="nav-link active" to="/manga/create/">Create manga</router-link>
             </li>
             <li class="nav-item" v-if="isLoggedIn">
               <router-link class="nav-link" to="/profile">Profile</router-link>
@@ -58,6 +65,7 @@
 <script>
 import { VueCookieNext } from "vue-cookie-next";
 import Search from "@/components/Main/Search.vue";
+import Login from "@/views/User/Login.vue";
 export default {
   data() {
     return {
@@ -68,6 +76,7 @@ export default {
     };
   },
   components:{
+    Login,
     Search
   },
   mounted() {
@@ -138,6 +147,8 @@ export default {
     transform: translateY(0);
   }
 }
-
-
+.logo{
+  max-width: 35px;
+  max-height: 35px;
+}
 </style>

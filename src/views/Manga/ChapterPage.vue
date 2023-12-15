@@ -17,7 +17,7 @@
 
 
 <script>
-import api from "@/components/kt/inter";
+import api from "@/components/script/inter";
 import ChapterComentComponent from "@/components/Manga/ChapterComentComponent.vue";
 export default {
   name: 'ChapterPage',
@@ -43,6 +43,13 @@ export default {
               console.log("this.chapter", this.chapter)
               document.title = this.chapter.title + ' | Chapter'
             })
+          .catch((error) => {
+            if (error.response.status === 404) {
+              this.$router.push('/error');
+            } else {
+              this.$router.push('/errorserver');
+            }
+          })
     }
   }
 }

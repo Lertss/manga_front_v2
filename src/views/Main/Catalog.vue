@@ -11,7 +11,7 @@
             </h2>
             <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
               <div class="accordion-body">
-                <!-- Список категорій тут -->
+                <!-- List category -->
                 <div v-for="(category, index) in dataFilter.categories" class="btn-container" :key="index">
                   <input
                       type="checkbox"
@@ -159,6 +159,7 @@
           >
             <router-link :to="manga.get_absolute_url">
               <div class="card h-100 image-container" style="max-height: 300px;">
+
                 <img
                     :src="manga.get_avatar"
                     class="card-img-top"
@@ -184,7 +185,7 @@
 <script>
 import axios from 'axios';
 import ChildComponent from "@/components/Manga/Filter.vue";
-import api from "@/components/kt/inter";
+import api from "@/components/script/inter";
 
 
 export default {
@@ -263,6 +264,7 @@ export default {
       axios.get(`api/v1/allManga/?${params.toString()}`)
           .then(response => {
             this.mangaList = response.data;
+            console.log(this.mangaList)
           });
     }
 

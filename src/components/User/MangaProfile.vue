@@ -9,7 +9,6 @@
         <div class="row align-items-stretch">
           <div class="col-lg-2 col-md-3 col-sm-3 col-4" v-for="manga in filteredManga" :key="manga.id">
             <router-link :to="manga.manga.url">
-
             <div class="card h-100 image-container">
               <img :src="manga.manga.thumbnail" class="card-img-top responsive-img" alt="manga Image">
               <div class="card-body image-overlay">

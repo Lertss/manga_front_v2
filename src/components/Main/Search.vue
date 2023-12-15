@@ -3,7 +3,7 @@
     <input v-model="searchTerm" placeholder="Пошук за назвою манги" @input="searchManga">
     <div v-if="searchTerm">
       <div v-for="manga in mangaList" :key="manga.id">
-        <a class="nav-link fst-italic border-bottom border-warning" style=" margin: 3%;" :href="manga.url">
+        <a class="nav-link fst-italic border-bottom border-warning" style=" margin: 3%;" :href="manga.slug">
           <p>{{ manga.name_manga }}</p>
       </a>
       </div>

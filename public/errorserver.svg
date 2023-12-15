@@ -1,0 +1,16 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+	<title>Новый проект</title>
+	<style>
+		tspan { white-space:pre } 
+		.t0 { font-size: 120px;fill: #1700fc;font-weight: 400;font-family: "DejaVuSans", "DejaVu Sans" } 
+		.t1 { font-size: 88px;fill: #1700fc;font-weight: 400;font-family: "DejaVuSans", "DejaVu Sans" } 
+	</style>
+	<text id="Error on the server" style="transform: matrix(1,0,0,1,46,153.5)" >
+		<tspan x="0" y="0" class="t0">Error on the server
+</tspan>
+	</text>
+	<text id="Oops..." style="transform: matrix(1,0,0,1,448,238)" >
+		<tspan x="0" y="66.9" class="t1">O</tspan><tspan  y="66.9" class="t1">o</tspan><tspan  y="66.9" class="t1">p</tspan><tspan  y="66.9" class="t1">s</tspan><tspan  y="66.9" class="t1">.</tspan><tspan  y="66.9" class="t1">.</tspan><tspan  y="66.9" class="t1">.</tspan><tspan  y="66.9" class="t1">
+</tspan>
+	</text>
+</svg>

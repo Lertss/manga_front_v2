@@ -1,34 +1,36 @@
 <template>
-  <div>
-    <h1>Create New Chapter</h1>
-    <div>
-      <label for="title">Title:</label>
-      <input type="text" v-model="chapter.title" /><br />
-      <button @click="updateTitle('title')">Update Title</button>
-    </div>
-
-      <div>
-      <label for="chapter_number">Chapter Number:</label>
-      <input type="number" v-model="chapter.chapter_number" required /><br />
-        <button @click="updateChapterNumber('title')">Update Chapter Number</button>
-      </div>
-
-        <div>
-      <label for="chapter_number">Volume Number:</label>
-      <input type="number" v-model="chapter.volume_number" required /><br />
-      <button @click="updateVolumeNumber('volume')">Update Volume Number</button>
+  <main class="container">
+    <div class="row g-5">
+      <div class="col-md-8">
+        <h1>Create New Chapter</h1>
+        <div class="mb-3 col-md-8 mt-5">
+          <label for="title">Title:</label>
+          <input type="text" class="form-control " maxlength="200" required  v-model="chapter.title" /><br />
+          <button class="btn btn-warning m-3 float-end" @click="updateTitle('title')">Update Title</button>
         </div>
 
-          <div>
-      <div v-for="(page, index) in chapter.pages" :key="index">
-        <input type="file" @change="handlePageChange(index, $event)" />
-      </div>
-      <button type="button" @click="addPageInput">Add Pages</button><br />
+          <div class="mb-3 col-md-8 mt-5">
+          <label for="chapter_number">Chapter Number:</label>
+          <input type="number" class="form-control" v-model="chapter.chapter_number" required /><br />
+            <button class="btn btn-warning m-3 float-end" @click="updateChapterNumber('title')">Update Chapter Number</button>
           </div>
-    <button @click="updatePages('pages')">Update Pages</button>
 
+            <div class="mb-3 col-md-8 mt-5">
+          <label for="chapter_number">Volume Number:</label>
+          <input type="number" class="form-control" v-model="chapter.volume_number" required /><br />
+          <button class="btn btn-warning m-3 float-end" @click="updateVolumeNumber('volume')">Update Volume Number</button>
+            </div>
 
-  </div>
+              <div class="mb-3 col-md-8 mt-5">
+          <div v-for="(page, index) in chapter.pages" :key="index">
+            <input type="file" class="form-control" @change="handlePageChange(index, $event)" />
+          </div>
+          <button class="btn btn-warning m-3 float-end" type="button" @click="addPageInput">Add Pages</button><br />
+              </div>
+        <button class="btn btn-warning m-3 float-end" @click="updatePages('pages')">Update Pages</button>
+      </div>
+    </div>
+  </main>
 </template>
 
 <script>

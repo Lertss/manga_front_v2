@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!--    <Header />-->
-  <div style="height:50px;  margin-bottom: 20px; ">
+  <div class="header">
   <Header />
   </div>
     <!--    <Other />-->
@@ -24,3 +24,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.header{
+  height:50px;
+  margin-bottom: 20px;
+}
+</style>

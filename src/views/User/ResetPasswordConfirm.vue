@@ -26,7 +26,7 @@
 
       <!-- Display only on small screens -->
       <div class="col-lg-6 d-lg-block d-none text-center">
-        <img src="../../assets/Pages/Anime_Pastel_Dream_anime_landscape_2.jpg" class="mx-auto rounded-3 img-setupr" alt=""/>
+        <img src="../../assets/Pages/Komiks_Pastel_Dream_Komiks_landscape_2.jpg" class="mx-auto rounded-3 img-setupr" alt=""/>
       </div>
     </div>
   </div>
@@ -34,7 +34,7 @@
 
 
 <script>
-import api from "@/components/kt/inter";
+import api from "@/components/script/inter";
 
 export default {
   data() {
@@ -71,7 +71,7 @@ export default {
       this.passwordError = '';
 
       if (this.newPassword1 !== this.newPassword2) {
-        this.passwordError = 'Паролі не співпадають';
+        this.passwordError = 'Passwords don\'t match';
         return;
       }
       const data = {
@@ -84,12 +84,12 @@ export default {
         const response = await api.post(`auth/password/reset/confirm/${this.uid}/${this.token}/`, data);
         this.respon = response.data;
         this.Messages = response.data;
-        // Redirect to login page or display a success message
+        window.location.href = '/log-in';
+
       } catch (error) {
         if (error.response && error.response.data) {
           this.errorMessages = "Password reset failed";
         }
-        // Display an error message
       }
     },
     validatePassword(value) {
@@ -114,9 +114,6 @@ export default {
         this.msg.password = '';
         this.disabled = [this.disabled[0], false];
       }
-    },
-    handleSubmission() {
-      alert(`Email: ${this.email} Password: ${this.password}`);
     },
   },
 };

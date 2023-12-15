@@ -64,7 +64,7 @@
 <script>
 import AuthorCreate from "@/components/Manga/AuthorCreate.vue";
 import ChildComponent from "@/components/Manga/Filter.vue";
-import api from "@/components/kt/inter";
+import api from "@/components/script/inter";
 import {VueCookieNext} from "vue-cookie-next";
 
 export default {
@@ -124,16 +124,16 @@ export default {
         const accessToken = VueCookieNext.getCookie('accessToken');
         const headers = {
           Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'multipart/form-data', // Важливо вказати тип даних
+          'Content-Type': 'multipart/form-data',
         };
         const response = await api.post(`/api/v1/manga/`, formData, { headers });
         console.log('Server response:', response.data);
-        this.$router.push({ name: 'mangapage', params: { slug: this.formData.english_only_field } });
+        this.$router.push("/");
       } catch (error) {
         console.error('Error sending data:', error);
         if (error.response && error.response.data) {
           const errorData = error.response.data;
-          this.errorMessages = {}; // Очистити поточні повідомлення про помилку
+          this.errorMessages = {};
 
           if (errorData.category) {
             this.errorMessages.category = errorData.category.join(', ');
@@ -171,7 +171,8 @@ margin-left: 40px;
 .alert-manga-create{
   margin-left: auto;
   margin-right: auto;
-  width:30%;
+  margin-top: 10px;
+  width:50%;
   height:80px;
 }
 </style>

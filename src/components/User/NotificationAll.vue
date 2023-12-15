@@ -6,7 +6,7 @@
           <router-link
               v-for="notification in notifications"
               :key="notification.id"
-              :to="notification.chapter.manga.url  + notification.chapter.slug"
+              :to="notification.chapter.manga.slug + '/' + notification.chapter.slug"
               @click="markAsRead(notification.id)"
               class="list-group-item list-group-item-action flex-column align-items-start rounded-2 m-1 border border-warning bg-light"
           >
@@ -64,35 +64,13 @@ export default {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         };
-        const response = await api.get(`/auth/notifications/`, { headers });
+        const response = await api.get(`/auth/notifications/profile`, {headers});
         this.notifications = response.data;
         console.log("Notification", this.notifications);
-      } catch (error) {
-        if (error.response.status === 404) {
-          this.$router.push('/error');
-        } else {
-          this.$router.push('/errorserver');
-        }
-      }
-    },
-    async markAsRead(notification) {
-      try {
-        const accessToken = VueCookieNext.getCookie("accessToken");
-        const headers = {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        };
-        const not_id = notification
-        console.log("kuda", notification)
-        // Оновлюємо статус is_read для повідомлення через API
-        await api.patch(`/auth/notifications/${not_id}/mark-as-read/`, {}, { headers });
-        // Оновлюємо статус is_read локально в компоненті
-        notification.is_read = true;
-        console.log("Marked as read:", notification);
       } catch (error) {
         console.log(error);
       }
     },
-  },
-};
+  }
+}
 </script>

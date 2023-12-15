@@ -120,7 +120,7 @@
 
 
 <script>
-import api from "@/components/kt/inter";
+import api from "@/components/script/inter";
 import AuthorCreate from "@/components/Manga/AuthorCreate.vue";
 
 export default {

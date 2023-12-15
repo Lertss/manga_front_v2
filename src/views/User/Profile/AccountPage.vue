@@ -50,7 +50,7 @@
 <script>
 import { VueCookieNext } from 'vue-cookie-next';
 import MangaData from "@/components/Manga/MangaData.vue";
-import api from "@/components/kt/inter";
+import api from "@/components/script/inter";
 import MangaProfile from "@/components/User/MangaProfile.vue";
 import CommentsProfile from "@/components/User/CommentsProfile.vue";
 
@@ -108,7 +108,11 @@ export default {
         this.Profile = response.data;
 
       } catch (error) {
-        console.log(error);
+        if (error.response.status === 404) {
+          this.$router.push('/error');
+        } else {
+          this.$router.push('/errorserver');
+        }
       }
     },
   },

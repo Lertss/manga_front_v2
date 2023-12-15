@@ -59,7 +59,7 @@
 <script>
 import axios from "axios";
 import {VueCookieNext} from "vue-cookie-next";
-import api from "@/components/kt/inter";
+import api from "@/components/script/inter";
 
 export default {
   data() {

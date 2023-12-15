@@ -2,7 +2,7 @@
 
   <div class="rounded" v-for="Manga in latestMangas" :key="Manga.id">
     <div class="box rounded" style="height: 310px; width: 160px; background: #121212; margin: 50px">
-      <router-link :to="Manga.get_absolute_url" class="button text-white mt-4 text-decoration-none">
+      <router-link :to="Manga.slug" class="button text-white mt-4 text-decoration-none">
         <figure class="image" style="height: 240px;">
           <img :src="Manga.get_thumbnail" alt="Manga Thumbnail" class="rounded" style="height: 250px; width: 160px;">
           <figcaption class="figure-caption text-white line-clamp-2">

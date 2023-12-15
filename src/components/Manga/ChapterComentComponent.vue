@@ -75,7 +75,7 @@
 
 
 <script>
-import api from "@/components/kt/inter";
+import api from "@/components/script/inter";
 import { VueCookieNext } from "vue-cookie-next";
 import Component1 from "@/components/Manga/RewiewMangaPage.vue";
 
@@ -100,7 +100,6 @@ export default {
       try {
         const response = await api.get(`/commn/chapters/${chapterSlug}/comments/`)
         this.commentsManga = response.data
-        console.log("ComentsManga",this.commentsManga)
       } catch (error) {
         console.log(error)
       }
@@ -124,7 +123,7 @@ export default {
         );
         this.getComent()
 
-        console.log("Server response:", response.data);
+
       } catch (error) {
         console.log("Error", error);
       }
@@ -138,7 +137,7 @@ export default {
           'Content-Type': 'application/json'  // Corrected content type
         };
 
-        console.log("roma", commentUpdate,commID)
+
 
         const response = await api.put(
             `/commn/comments/${commID}/`,
@@ -149,7 +148,7 @@ export default {
         );
         this.getComent()
 
-        console.log("Server response:", response.data);
+
       } catch (error) {
         console.log("Error", error);
       }
@@ -162,15 +161,11 @@ export default {
           'Content-Type': 'application/json'  // Corrected content type
         };
 
-        console.log("roma", commentUpdate,commID)
-
         const response = await api.delete(
             `/commn/comments/${commID}/`,
             {headers}
         );
         this.getComent()
-
-        console.log("Server response:", response.data);
       } catch (error) {
         console.log("Error", error);
       }

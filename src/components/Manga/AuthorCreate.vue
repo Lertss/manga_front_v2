@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import api from "@/components/kt/inter";
+import api from "@/components/script/inter";
 import {VueCookieNext} from "vue-cookie-next";
 
 export default {
@@ -58,7 +58,6 @@ export default {
           last_name: this.last_name
         }, {headers});
         this.respon = response.data;
-        console.log(this.respon);
 
         window.location.reload()
       } catch (error) {

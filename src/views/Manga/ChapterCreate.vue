@@ -18,14 +18,13 @@
               <div v-for="(page, index) in chapter.pages" :key="index">
                 <input class="form-control" accept="image/*" type="file" @change="handlePageChange(index, $event)" />
               </div>
-              <!-- Горизонтально розташовані кнопки -->
-              <div class="btn-group">
+              <div class="btn-group ">
                 <button class="btn btn-outline-warning" type="button" @click="addPageInput">Add Pages</button>
                 <button class="btn btn-outline-danger" type="button" @click="removePageInput(index)">Remove Page</button>
               </div>
             </div>
 
-            <button class="btn btn-warning float-end" type="submit">Create Chapter</button>
+            <button class="btn btn-warning float-end m-4" type="submit">Create Chapter</button>
           </form>
         </div>
         <div class="col-lg-6 col-12">
@@ -66,8 +65,8 @@ export default {
     addPageInput() {
       this.chapter.pages.push({});
     },
-    removePageInput(index) {
-      this.chapter.pages.splice(index, 1);
+    removePageInput() {
+      this.chapter.pages.pop();
     },
     createChapter() {
       const mangaSlug = this.$route.params.slug;
@@ -83,18 +82,17 @@ export default {
         formData.append("page_number", index);
       });
       for (let entry of formData.entries()) {
-        console.log("tut", entry[0], entry[1]);
       }
 
       const accessToken = VueCookieNext.getCookie("accessToken");
       const headers = {
         Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "multipart/form-data", // Важливо вказати тип даних
+        "Content-Type": "multipart/form-data",
       };
       axios
           .post("http://127.0.0.1:8000/api/v1/chapters/", formData, { headers })
           .then((response) => {
-            console.log("Chapter created:", response.data);
+            this.$router.push(`/${this.$route.params.slug}`);
           })
           .catch((error) => {
             console.error("Error creating chapter:", error);

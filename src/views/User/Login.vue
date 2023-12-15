@@ -27,7 +27,7 @@
 
       <div class="col-md-6 d-none d-md-block text-center">
         <div>
-          <img src="../../assets/Pages/Anime_Pastel_Dream_anime_landscape_1.jpg" class="mx-auto rounded-3 img-setupl" alt=""/>
+          <img src="../../assets/Pages/Komiks_Pastel_Dream_Komiks_landscape_1.jpg" class="mx-auto rounded-3 img-setupl" alt=""/>
         </div>
       </div>
     </div>
@@ -58,12 +58,9 @@ export default {
       try {
         const response = await axios.post('/auth/login/', this.formData);
         const {access, refresh} = response.data;
-
-        // Зберігаємо токен в куці
-        VueCookieNext.setCookie('accessToken', access); // Наприклад, зберігаємо на 7 днів
+        VueCookieNext.setCookie('accessToken', access);
         VueCookieNext.setCookie('refreshToken', refresh)
         localStorage.setItem('isLoggedIn', 'true');
-        // Зберегти інформацію про користувача, якщо необхідно
         window.location.href = '/log-in';
 
 

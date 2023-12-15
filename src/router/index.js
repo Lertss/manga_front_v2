@@ -1,6 +1,6 @@
 import {createRouter, createWebHistory} from 'vue-router';
-import Home from '../views/Home.vue';
-import Catalog from "@/views/Catalog.vue";
+import Home from '../views/Main/Home.vue';
+import Catalog from "@/views/Main/Catalog.vue";
 import Test from "@/views/Test/Test.vue";
 import MangaPage from "@/views/Manga/MangaPage.vue";
 import GlawPage from "@/views/Manga/ChapterPage.vue";
@@ -20,6 +20,8 @@ import TopHundredMangaRating from "@/views/Manga/TopHundredMangaRating.vue";
 import TopHundredMangaLastRating from "@/views/Manga/TopHundredMangaLastRating.vue";
 import Tophundredmangacomments from "@/views/Manga/Tophundredmangacomments.vue";
 import Notification from "@/views/User/Notification.vue";
+import ErrorServer from "@/views/Main/ErrorServer.vue";
+import NotFoundPage from "@/views/Main/NotFoundPage.vue";
 
 const routes = [
   {
@@ -33,7 +35,7 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/Main/AboutView.vue')
   },
   {
     path: '/catalog',
@@ -64,6 +66,11 @@ const routes = [
     path: '/:slug/:slugtwo',
     name: 'glawpage',
     component: GlawPage
+  },
+  {
+    path: '/notification',
+    name: 'Notifications',
+    component: Notification
   },
   {
     path: '/test',
@@ -105,20 +112,15 @@ const routes = [
     component: ResetPassword
   },
   {
-      path: '/account/:slug',
-      name: 'account',
-      component: AccountPage,
-  },
-  {
     path: '/profile',
     name: 'profile',
     component: Profile,
     meta: { requiresAuth: true }
   },
   {
-    path: '/notification',
-    name: 'notification',
-    component: Notification
+    path: '/account/:slug',
+    name: 'account',
+    component: AccountPage,
   },
   {
     path: '/log-in',
@@ -148,7 +150,16 @@ const routes = [
 
 
 
-
+  {
+    path: '/error',
+    name: 'error',
+    component: NotFoundPage,
+  },
+  {
+    path: '/errorserver',
+    name: 'errorserver',
+    component: ErrorServer,
+  },
 
 
 

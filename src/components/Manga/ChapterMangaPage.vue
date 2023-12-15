@@ -2,7 +2,7 @@
   <div>
     <div class="d-flex justify-content-between align-items-center">
       <h2>Chapters</h2>
-      <router-link to="chapter/create" class="text-decoration-none m-1 router-link-exact-active">
+      <router-link :to="'/' + $route.params.slug + '/chapter/create'" class="text-decoration-none m-1 router-link-exact-active">
         <i class="bi bi-journal-plus"></i>
       </router-link>
     </div>
@@ -10,17 +10,18 @@
       <div class="rounded-4" v-for="chap in manga.chapters" :key="chap.id">
         <div style="display: flex; align-items: flex-start;">
           <div style="flex-grow: 1;">
-            <router-link :to="chap.slug" class="no-underline">
-              <h4 class="text-dark figure-caption ms-3">{{chap.title}}</h4>
+            <router-link :to="`${chap.slug}`" class="no-underline">
+
+            <h4 class="text-dark figure-caption ms-3">{{chap.title}}</h4>
               <p>
                 <em class="text-dark figure-caption ms-2">
-                  Tom {{chap.volume}} Chapter {{ chap.num }}
+                  Tom {{chap.volume}} Chapter {{ chap.chapter_number}}
                 </em>
               </p>
             </router-link>
           </div>
           <div>
-            <router-link :to="'chapter/update/' + chap.slug" class=" m-1 float-end router-link-exact-active">
+            <router-link :to="'/' + $route.params.slug +  '/chapter/update/' +chap.slug" class=" m-1 float-end router-link-exact-active">
               <i class="bi bi-gear"></i>
             </router-link>
           </div>
@@ -40,9 +41,6 @@ export default {
       type: Object,
       required: true,
     },
-  },
-  mounted() {
-    console.log(this.$route.params);
   },
 };
 </script>

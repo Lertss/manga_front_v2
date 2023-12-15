@@ -1,6 +1,7 @@
 <template>
   <div class="container-fluid">
     <div v-for="chapter in latestChapter" :key="chapter.id" style="margin: 10px" class="border-bottom">
+      {{console.log(chapter)}}
       <div style="display: flex; align-items: flex-start;">
         <router-link :to="chapter.manga.url">
           <div style="margin-right: 10px;">
@@ -15,7 +16,7 @@
           <router-link :to="`${chapter.manga.url}${chapter.slug}`">
             <p style="background-color: #cbcbcb; margin: 0; border-radius: 10px; padding: 3px;">
               <em style="margin-left: 1%;" class="text-dark figure-caption right-align">
-                <span style="display: inline-block;">Tom {{ chapter.volume }} Chapter {{ chapter.num }}</span>
+                <span style="display: inline-block;">Tom {{ chapter.volume }} Chapter {{ chapter.chapter_number}}</span>
                 <span class="relative-date">{{ formatRelativeDate(chapter.data_g) }}</span>
               </em>
             </p>
@@ -42,7 +43,7 @@
 
 <script>
 import moment from 'moment';
-import api from "@/components/kt/inter";
+import api from "@/components/script/inter";
 
 export default {
   name: 'RecentUpdates',
@@ -59,7 +60,6 @@ export default {
       try {
         const response = await api.get('/api/v1/last-chapters/');
         this.latestChapter = response.data;
-        console.log(this.latestChapter)
       } catch (error) {
         console.log(error);
       }

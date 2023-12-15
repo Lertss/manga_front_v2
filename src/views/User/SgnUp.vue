@@ -58,16 +58,18 @@
               </label>
             </div>
           </div>
+
           <div class="mb-3">
             <label for="avatar" class="form-label">Avatar</label>
-            <input class="form-control" type="file" @change="onFileChange" required/>
+            <input class="form-control" accept="image/*" type="file" @change="onFileChange" required/>
           </div>
+
           <button type="submit" class="btn btn-warning">Submit</button>
         </form>
       </div>
-      <!-- Додайте класи колонок для зображення на великому екрані та ховаємо на маленькому екрані -->
-      <div class="col-lg-6 d-none d-lg-block text-center"> <!-- Додайте клас text-center для центрування -->
-        <img src="../../assets/Pages/Anime_Pastel_Dream_anime_landscape_0.jpg" class="mx-auto rounded-3 img-setups"  alt=""/> <!-- Додайте клас mx-auto для центрування зображення -->
+
+      <div class="col-lg-6 d-none d-lg-block text-center">
+        <img src="../../assets/Pages/Komiks_Pastel_Dream_komiks_landscape_0.jpg" class="mx-auto rounded-3 img-setups" alt=""/>
       </div>
 
     </div>
@@ -109,18 +111,14 @@ export default {
   },
   methods: {
     async Registr() {
-      // Validate username
       if (this.formData.username.length< 3) {
         alert('Username must be at least 3 characters long');
         return;
       }
-
       if (this.password1 !==this.password2) {
         alert('Passwords do not match');
         return;
       }
-
-      // Validate gender
       if (!this.formData.gender) {
         alert('Please select a gender');
         return;
@@ -141,6 +139,7 @@ export default {
             'Content-Type': 'multipart/form-data',
           },
         });
+        window.location.href = '/log-in';
       } catch (error) {
         console.error('Error sending data:', error);
         if (error.response && error.response.data) {
@@ -160,7 +159,6 @@ export default {
     },
 
     validateEmail(value) {
-      // Додайте перевірку валідності електронної адреси
       if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
         this.msg.email = '';
         this.disabled = [false, this.disabled[1]];
@@ -171,7 +169,6 @@ export default {
     },
     validatePassword(value) {
       let difference = 8 - value.length;
-      // Додайте перевірку на складність пароля
       if (value.length < 8) {
         this.msg.password = `Must be at least 8 characters! ${difference} characters left`;
         this.disabled = [this.disabled[0], true];
@@ -192,9 +189,7 @@ export default {
         this.disabled = [this.disabled[0], false];
       }
     },
-    handleSubmission() {
-      alert(`Email: ${this.email} Password: ${this.password}`);
-    },
+
   },
 };
 </script>

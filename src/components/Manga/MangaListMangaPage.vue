@@ -16,7 +16,7 @@
 
 
 <script>
-import api from "@/components/kt/inter";
+import api from "@/components/script/inter";
 import {VueCookieNext} from "vue-cookie-next";
 
 export default {
@@ -58,7 +58,7 @@ export default {
         };
         const response = await api.get(`/api/v1/manga_in_user_list/${mangaSlug}/`, {headers});
         this.statusManga = response.data;
-        console.log("Status", this.statusManga);
+
       } catch (error) {
         console.log(error);
       }
@@ -72,10 +72,10 @@ export default {
           Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json'  // Corrected content type
         };
-        console.log("new status", newStatus)
+
         const response = await api.post(`/api/v1/add-manga-list/`,{"slug": mangaSlug, "name": newStatus}, {headers});
         this.statusManga = response.data;
-        console.log("Status", this.statusManga);
+
       } catch (error) {
         console.log(error);
       }
@@ -90,7 +90,7 @@ export default {
         };
         const response = await api.post(`/api/v1/remove-manga-list/`,{"slug": mangaSlug}, {headers});
         this.statusManga = response.data;
-        console.log("Status", this.statusManga);
+
       } catch (error) {
         console.log(error);
       }

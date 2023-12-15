@@ -49,7 +49,7 @@
 <script>
 import index from "vuex";
 import {VueCookieNext} from "vue-cookie-next";
-import api from "@/components/kt/inter";
+import api from "@/components/script/inter";
 
 export default {
   name: 'Rating',
@@ -86,7 +86,6 @@ export default {
             },
             {headers});
 
-        console.log('Оцінка була успішно додана:', response.data);
       } catch (error) {
         console.error('Помилка при додаванні оцінки:', error);
       }
