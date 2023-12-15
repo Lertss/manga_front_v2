@@ -31,3 +31,21 @@ This frontend is designed to work seamlessly with Vue.js. Please note that the b
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+## Features
+User registration and authentication.
+
+Adding manga and its chapters.
+
+Reading manga.
+
+Edit information about the manga.
+
+Tracking the addition of new chapters.
+
+Commenting on manga.
+
+Rating manga.
+
+And more.
