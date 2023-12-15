@@ -2,6 +2,7 @@
 
 A frontend project for manga readers and authors.
 
+
 ## Project setup
 ```
 npm install
@@ -23,14 +24,14 @@ npm run test:unit
 ```
 
 
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
 ## Backend Task
 This frontend is designed to work seamlessly with Vue.js. Please note that the backend is hosted in a separate repository.
 
 [Link to backend](https://github.com/Lertss/manga_back)
-
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
 
 
 ## Features
