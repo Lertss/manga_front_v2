@@ -1,5 +1,7 @@
 # manga_front_v2
 
+A frontend project for manga readers and authors.
+
 ## Project setup
 ```
 npm install
