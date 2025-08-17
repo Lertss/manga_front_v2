@@ -15,13 +15,13 @@
                 <div v-for="(category, index) in dataFilter.categories" class="btn-container" :key="index">
                   <input
                       type="checkbox"
-                      :id="category.cat_name"
-                      :value="category.cat_name"
+                      :id="category.category_name"
+                      :value="category.category_name"
                       v-model="selectedDataFilter.categories"
                       @change="getMangaList"
                       class="btn-check"
                   />
-                  <label :for="category.cat_name" class="btn btn-outline-warning">{{ category.cat_name }}</label>
+                  <label :for="category.category_name" class="btn btn-outline-warning">{{ category.category_name }}</label>
                 </div>
               </div>
             </div>
@@ -38,14 +38,14 @@
                 <div v-for="(genre, index) in dataFilter.genres" class="btn-container" :key="index">
                   <input
                       type="checkbox"
-                      :id="genre.genr_name"
-                      :value="genre.genr_name"
+                      :id="genre.genre_name"
+                      :value="genre.genre_name"
                       v-model="selectedDataFilter.genres"
                       @change="getMangaList"
                       class="btn-check"
                       :autocomplete="'off'"
                   />
-                  <label :for="genre.genr_name" class="btn  btn-outline-warning">{{ genre.genr_name }}</label>
+                  <label :for="genre.genre_name" class="btn  btn-outline-warning">{{ genre.genre_name }}</label>
                 </div>
               </div>
             </div>
@@ -86,14 +86,14 @@
                 <div v-for="(country, index) in dataFilter.countries" class="btn-container" :key="index">
                   <input
                       type="checkbox"
-                      :id="country.counts"
-                      :value="country.counts"
+                      :id="country.country_name"
+                      :value="country.country_name"
                       v-model="selectedDataFilter.countries"
                       @change="getMangaList"
                       class="btn-check"
                       :autocomplete="'off'"
                   />
-                  <label :for="country.counts"  class="btn  btn-outline-warning">{{ country.counts }}</label>
+                  <label :for="country.country_name"  class="btn  btn-outline-warning">{{ country.country_name }}</label>
                 </div>
               </div>
             </div>
@@ -124,13 +124,13 @@
                 <div class="accordion-body">
                   <div v-for="(value, valueIndex) in dataFilter[param]" :key="value.id" class="btn-container">
                     <input type="checkbox"
-                           :id="'checkbox_' + param + '_' + paramIndex + '_' + (value.counts || value.genr_name || value.tag_name || value.cat_name)"
-                           :value="value.counts || value.genr_name || value.tag_name || value.cat_name"
+                           :id="'checkbox_' + param + '_' + paramIndex + '_' + (value.country_name || value.genre_name || value.tag_name || value.category_name)"
+                           :value="value.country_name || value.genre_name || value.tag_name || value.category_name"
                            v-model="excluded[param]"
                            @change="getMangaList"
                            class="btn-check"
                     />
-                    <label :for="'checkbox_' + param + '_' + paramIndex + '_' + (value.counts || value.genr_name || value.tag_name || value.cat_name)" class="btn btn-outline-danger">{{ value.counts || value.genr_name || value.tag_name || value.cat_name }}</label>
+                    <label :for="'checkbox_' + param + '_' + paramIndex + '_' + (value.country_name || value.genre_name || value.tag_name || value.category_name)" class="btn btn-outline-danger">{{ value.country_name || value.genre_name || value.tag_name || value.category_name }}</label>
                   </div>
                 </div>
               </div>
@@ -157,7 +157,7 @@
               :key="index"
               style="margin-top: 5px"
           >
-            <router-link :to="manga.get_absolute_url">
+            <router-link :to="manga.get_url">
               <div class="card h-100 image-container" style="max-height: 300px;">
 
                 <img
@@ -187,15 +187,13 @@ import axios from 'axios';
 import ChildComponent from "@/components/Manga/Filter.vue";
 import api from "@/components/script/inter";
 
-
 export default {
   name: 'MangaList',
-  components: {ChildComponent},
+  components: { ChildComponent },
 
   data() {
     return {
       selectedDataFilter: { authors: [], countries: [], genres: [], tags: [], categories: [] },
-
       selectedGenres: [],
       selectedTags: [],
       selectedCategory: '',
@@ -209,11 +207,22 @@ export default {
       },
       minRating: 0,
       mangaList: [],
-      dataFilter:[]
-    }
+      dataFilter: [],
+      currentPage: 1,
+      nextPageUrl: null,
+      isLoading: false,
+      hasMore: true
+    };
   },
   created() {
-    this.getDataFilter(); // Виклик функції при створенні компонента
+    this.getDataFilter();
+  },
+  mounted() {
+    this.getMangaList();
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
     async getDataFilter() {
@@ -222,29 +231,28 @@ export default {
         this.dataFilter = response.data;
         delete this.dataFilter.authors;
       } catch (error) {
-        // Обробка помилок
+        console.error('Error fetching filter data:', error);
       }
     },
-    getMangaList() {
+    async getMangaList(append = false) {
+      if (this.isLoading || !this.hasMore) return;
+
+      this.isLoading = true;
+
       let params = new URLSearchParams();
 
       for (let genre of this.selectedDataFilter.genres) {
         params.append('genres', genre);
       }
-
       for (let tag of this.selectedDataFilter.tags) {
         params.append('tags', tag);
       }
-
       for (let category of this.selectedDataFilter.categories) {
         params.append('category', category);
-
       }
-
       for (let country of this.selectedDataFilter.countries) {
-        params.append('counts', country);
+        params.append('country_name', country);
       }
-
       if (this.selectedDecency) {
         params.append('decency', this.selectedDecency);
       }
@@ -253,26 +261,44 @@ export default {
           for (let value of values) {
             params.append('exclude_' + param, value);
           }
+        } catch (error) {
+          console.error('Error adding excluded params:', error);
         }
-        catch (error){
-          console.log(error)}
       }
       if (this.minRating > 0) {
         params.append('min_rating', this.minRating);
       }
 
-      axios.get(`api/v1/allManga/?${params.toString()}`)
-          .then(response => {
-            this.mangaList = response.data;
-            console.log(this.mangaList)
-          });
-    }
+      try {
+        const url = this.nextPageUrl || `/api/v1/allManga/?page=${this.currentPage}&${params.toString()}`;
+        const response = await axios.get(url);
+        const newMangas = response.data.results;
 
-  },
-  mounted() {
-    this.getMangaList();
+        if (append) {
+          this.mangaList = [...this.mangaList, ...newMangas];
+        } else {
+          this.mangaList = newMangas;
+        }
+
+        this.nextPageUrl = response.data.next;
+        this.hasMore = !!response.data.next;
+        this.currentPage += 1;
+      } catch (error) {
+        console.error('Error fetching manga list:', error);
+      } finally {
+        this.isLoading = false;
+      }
+    },
+    handleScroll() {
+      const bottomOfWindow =
+          window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100;
+
+      if (bottomOfWindow && !this.isLoading && this.hasMore) {
+        this.getMangaList(true);
+      }
+    }
   }
-}
+};
 </script>
 
 <style>
