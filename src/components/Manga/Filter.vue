@@ -12,12 +12,12 @@
           <div v-for="(category, index) in dataFilter.categories" class="btn-warning-container" :key="index">
             <input
                 type="radio"
-                :id="category.cat_name"
+                :id="category.category_name"
                 :value="category.id"
                 v-model="selectedDataFilter.categories"
                 class="btn-check"
             />
-            <label :for="category.cat_name" class="btn btn-outline-warning">{{ category.cat_name }}</label>
+            <label :for="category.category_name" class="btn btn-outline-warning">{{ category.category_name }}</label>
           </div>
         </div>
       </div>
@@ -34,13 +34,13 @@
           <div v-for="(genre, index) in dataFilter.genres" class="btn-warning-container" :key="index">
             <input
                 type="checkbox"
-                :id="genre.genr_name"
+                :id="genre.genre_name"
                 :value="genre.id"
                 v-model="selectedDataFilter.genres"
                 class="btn-check"
                 :autocomplete="'off'"
             />
-            <label :for="genre.genr_name" class="btn  btn-outline-warning">{{ genre.genr_name }}</label>
+            <label :for="genre.genre_name" class="btn  btn-outline-warning">{{ genre.genre_name }}</label>
           </div>
         </div>
       </div>
@@ -80,13 +80,13 @@
       <div v-for="(country, index) in dataFilter.countries" class="btn-warning-container" :key="index">
         <input
             type="checkbox"
-            :id="country.counts"
+            :id="country.country_name"
             :value="country.id"
             v-model="selectedDataFilter.countries"
             class="btn-check"
             :autocomplete="'off'"
         />
-        <label :for="country.counts"  class="btn  btn-outline-warning">{{ country.counts }}</label>
+        <label :for="country.country_name"  class="btn  btn-outline-warning">{{ country.country_name }}</label>
       </div>
           </div>
         </div>

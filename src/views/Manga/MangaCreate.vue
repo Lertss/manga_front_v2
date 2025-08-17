@@ -78,7 +78,7 @@ export default {
         name_original: "",
         english_only_field: "",
         author: [],
-        counts: [],
+        country_name: [],
         genre: [],
         tags: [],
         review:"",
@@ -94,7 +94,7 @@ export default {
     handleSelectedGenres(selectedDataFilter) {
       this.formData.category = selectedDataFilter.categories;
       this.formData.author = selectedDataFilter.authors;
-      this.formData.counts = selectedDataFilter.countries;
+      this.formData.country_name = selectedDataFilter.countries;
       this.formData.genre = selectedDataFilter.genres;
       this.formData.tags = selectedDataFilter.tags;
     },
@@ -110,8 +110,8 @@ export default {
         for (let i = 0; i < this.formData.author.length; i++) {
           formData.append('author', this.formData.author[i]);
         }
-        for (let i = 0; i < this.formData.counts.length; i++) {
-          formData.append('counts', this.formData.counts[i]);
+        for (let i = 0; i < this.formData.country_name.length; i++) {
+          formData.append('country_name', this.formData.country_name[i]);
         }
         for (let i = 0; i < this.formData.genre.length; i++) {
           formData.append('genre', this.formData.genre[i]);

@@ -34,8 +34,8 @@
                 <p>
                   <em class="text-dark figure-caption border-bottom border-warning">
                     {{
-                      manga.counts && manga.counts[0] && manga.counts[0].counts
-                          ? manga.counts[0].counts
+                      manga.country_name && manga.country_name[0] && manga.country_name[0].country_name
+                          ? manga.country_name[0].country_name
                           : 'Not specified'
                     }}
                   </em>
@@ -128,10 +128,9 @@ export default {
     async getManga() {
       const mangaSlug = this.$route.params.slug
       try {
-        const response = await api.get(`/api/v1/${mangaSlug}/`);
+        const response = await api.get(`/api/v1/manga/${mangaSlug}/`);
         this.manga = response.data;
         document.title = this.manga.name_manga + ' | Manga';
-        console.log(response)
       } catch (error) {
         if (error.response.status === 404) {
           // Помилка 404, перенаправити на сторінку '/error'
