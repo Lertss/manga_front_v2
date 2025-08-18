@@ -175,6 +175,7 @@
             </router-link>
           </div>
         </div>
+        <div v-if="isLoading" class="text-center">Loading more...</div>
       </div>
 
     </div>
@@ -187,13 +188,15 @@ import axios from 'axios';
 import ChildComponent from "@/components/Manga/Filter.vue";
 import api from "@/components/script/inter";
 
+
 export default {
   name: 'MangaList',
-  components: { ChildComponent },
+  components: {ChildComponent},
 
   data() {
     return {
       selectedDataFilter: { authors: [], countries: [], genres: [], tags: [], categories: [] },
+
       selectedGenres: [],
       selectedTags: [],
       selectedCategory: '',
@@ -207,12 +210,11 @@ export default {
       },
       minRating: 0,
       mangaList: [],
-      dataFilter: [],
+      dataFilter:[],
       currentPage: 1,
-      nextPageUrl: null,
-      isLoading: false,
-      hasMore: true
-    };
+      hasMore: true,
+      isLoading: false
+    }
   },
   created() {
     this.getDataFilter();
@@ -221,7 +223,7 @@ export default {
     this.getMangaList();
     window.addEventListener('scroll', this.handleScroll);
   },
-  beforeDestroy() {
+  destroyed() {
     window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
@@ -231,28 +233,28 @@ export default {
         this.dataFilter = response.data;
         delete this.dataFilter.authors;
       } catch (error) {
-        console.error('Error fetching filter data:', error);
+        // Обробка помилок
       }
     },
-    async getMangaList(append = false) {
-      if (this.isLoading || !this.hasMore) return;
-
-      this.isLoading = true;
-
+    buildParams() {
       let params = new URLSearchParams();
 
       for (let genre of this.selectedDataFilter.genres) {
         params.append('genres', genre);
       }
+
       for (let tag of this.selectedDataFilter.tags) {
         params.append('tags', tag);
       }
+
       for (let category of this.selectedDataFilter.categories) {
         params.append('category', category);
       }
+
       for (let country of this.selectedDataFilter.countries) {
         params.append('country_name', country);
       }
+
       if (this.selectedDecency) {
         params.append('decency', this.selectedDecency);
       }
@@ -261,49 +263,59 @@ export default {
           for (let value of values) {
             params.append('exclude_' + param, value);
           }
-        } catch (error) {
-          console.error('Error adding excluded params:', error);
         }
+        catch (error){
+          console.log(error)}
       }
       if (this.minRating > 0) {
         params.append('min_rating', this.minRating);
       }
 
+      return params;
+    },
+    getMangaList() {
+      this.mangaList = [];
+      this.currentPage = 1;
+      this.hasMore = true;
+      this.loadManga();
+    },
+    async loadManga() {
+      if (this.isLoading || !this.hasMore) return;
+      this.isLoading = true;
       try {
-        const url = this.nextPageUrl || `/api/v1/allManga/?page=${this.currentPage}&${params.toString()}`;
-        const response = await axios.get(url);
-        const newMangas = response.data.results;
-
-        if (append) {
-          this.mangaList = [...this.mangaList, ...newMangas];
+        let params = this.buildParams();
+        params.append('page', this.currentPage);
+        const response = await axios.get(`api/v1/allManga/?${params.toString()}`);
+        if (this.currentPage === 1) {
+          this.mangaList = response.data.results;
         } else {
-          this.mangaList = newMangas;
+          this.mangaList.push(...response.data.results);
         }
-
-        this.nextPageUrl = response.data.next;
         this.hasMore = !!response.data.next;
-        this.currentPage += 1;
       } catch (error) {
-        console.error('Error fetching manga list:', error);
+        console.error(error);
       } finally {
         this.isLoading = false;
       }
     },
+    loadMore() {
+      if (this.hasMore && !this.isLoading) {
+        this.currentPage++;
+        this.loadManga();
+      }
+    },
     handleScroll() {
-      const bottomOfWindow =
-          window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100;
-
-      if (bottomOfWindow && !this.isLoading && this.hasMore) {
-        this.getMangaList(true);
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
+        this.loadMore();
       }
     }
   }
-};
+}
 </script>
 
 <style>
 .btn-container {
-  margin: 5px; /* Задайте бажаний відступ між кнопками */
+  margin: 5px;
 }
 table {
   border-collapse: collapse;
@@ -323,18 +335,17 @@ table, th, td {
   left: 0;
   width: 100%;
   height: 25%;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 2)); /* Градієнт затемнення */
+  background: linear-gradient(transparent, rgba(0, 0, 0, 2));
   display: flex;
-  align-items: center; /* Вирівнювання тексту по вертикалі */
+  align-items: center;
 }
 
 .overlay-text {
-  color: white; /* Колір тексту */
-  text-align: center; /* Вирівнювання тексту по центру */
+  color: white;
+  text-align: center;
   box-sizing: border-box;
   margin: 0;
-  padding: 5px; /* Відступи від тексту */
-  width: 100%; /* Ширина тексту по ширині контейнера */
+  padding: 5px;
+  width: 100%;
 }
 </style>
-
